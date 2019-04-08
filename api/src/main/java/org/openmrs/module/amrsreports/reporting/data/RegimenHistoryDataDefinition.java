@@ -14,29 +14,17 @@
 
 package org.openmrs.module.amrsreports.reporting.data;
 
-import org.openmrs.PersonName;
 import org.openmrs.module.reporting.data.BaseDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
+import org.openmrs.module.reporting.definition.configuration.ConfigurationPropertyCachingStrategy;
+import org.openmrs.module.reporting.evaluation.caching.Caching;
 
-public class CohortRestrictedPreferredNameDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
+import java.util.List;
 
-	public static final long serialVersionUID = 1L;
-
-	//****** CONSTRUCTORS ******
-
-	/**
-	 * Default Constructor
-	 */
-	public CohortRestrictedPreferredNameDataDefinition() {
-		super();
-	}
-
-	//***** INSTANCE METHODS *****
-
-	/**
-	 * @see org.openmrs.module.reporting.data.DataDefinition#getDataType()
-	 */
+@Caching(strategy = ConfigurationPropertyCachingStrategy.class)
+public class RegimenHistoryDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
+	@Override
 	public Class<?> getDataType() {
-		return PersonName.class;
+		return List.class;
 	}
 }

@@ -13,37 +13,26 @@
  */
 package org.openmrs.module.amrsreports.reporting.data;
 
-import org.openmrs.module.reporting.common.Localized;
+import org.openmrs.module.amrsreports.MOHFacility;
 import org.openmrs.module.reporting.data.BaseDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
+import org.openmrs.module.reporting.definition.configuration.ConfigurationPropertyCachingStrategy;
+import org.openmrs.module.reporting.evaluation.caching.Caching;
+import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 
 /**
- * Gender Column
  */
-@Localized("reporting.GenderDataDefinition")
-public class CohortRestrictedGenderDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
+@Caching(strategy = ConfigurationPropertyCachingStrategy.class)
+public class ARTSerialNumberDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
 
-	public static final long serialVersionUID = 1L;
-
-	/**
-	 * Default Constructor
-	 */
-	public CohortRestrictedGenderDataDefinition() {
-		super();
+	public ARTSerialNumberDataDefinition() {
+		Parameter facility = new Parameter();
+		facility.setName("facility");
+		facility.setType(MOHFacility.class);
+		this.addParameter(facility);
 	}
 
-	/**
-	 * Constructor to populate name only
-	 */
-	public CohortRestrictedGenderDataDefinition(String name) {
-		super(name);
-	}
-
-	//***** INSTANCE METHODS *****
-
-	/**
-	 * @see org.openmrs.module.reporting.data.DataDefinition#getDataType()
-	 */
+	@Override
 	public Class<?> getDataType() {
 		return String.class;
 	}

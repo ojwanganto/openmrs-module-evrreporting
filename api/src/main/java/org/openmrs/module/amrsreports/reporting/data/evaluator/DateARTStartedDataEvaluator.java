@@ -2,8 +2,6 @@ package org.openmrs.module.amrsreports.reporting.data.evaluator;
 
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.amrsreports.AmrsReportsConstants;
-import org.openmrs.module.amrsreports.HIVCareEnrollment;
 import org.openmrs.module.amrsreports.reporting.data.DateARTStartedDataDefinition;
 import org.openmrs.module.reporting.data.person.EvaluatedPersonData;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
@@ -36,22 +34,18 @@ public class DateARTStartedDataEvaluator implements PersonDataEvaluator {
 		DataSetQueryService qs = Context.getService(DataSetQueryService.class);
 
 		StringBuilder hql = new StringBuilder();
-		Map<String, Object> m = new HashMap<String, Object>();
-
-		hql.append("select hce.patient.patientId, hce.firstARVDate");
-		hql.append(" from HIVCareEnrollment as hce");
+		hql.append("select patient.id, firstARVDate");
+		hql.append(" from HIVCareEnrollment");
 		hql.append(" where");
+		hql.append("   patient.id in (:patientIds)");
+		hql.append("   and firstARVDate <= :onOrBefore");
 
-		hql.append(" hce.patient.patientId in (" +
-				"	SELECT elements(c.memberIds) from Cohort as c" +
-				"	where c.uuid = :cohortUuid" +
-				") ");
-		m.put("cohortUuid", AmrsReportsConstants.SAVED_COHORT_UUID);
-
-		hql.append("and hce.firstARVDate <= :onOrBefore ");
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("patientIds", context.getBaseCohort());
 		m.put("onOrBefore", context.getEvaluationDate());
 
 		List<Object> queryResult = qs.executeHqlQuery(hql.toString(), m);
+
 
 		for (Object o : queryResult) {
 			Object[] parts = (Object[]) o;

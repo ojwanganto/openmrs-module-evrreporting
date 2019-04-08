@@ -15,12 +15,13 @@
 package org.openmrs.module.amrsreports.reporting.data;
 
 import org.openmrs.Concept;
-import org.openmrs.module.amrsreports.model.SortedObsFromDate;
+import org.openmrs.module.amrsreports.model.SortedItemsFromDate;
 import org.openmrs.module.reporting.data.BaseDataDefinition;
 import org.openmrs.module.reporting.data.MappedData;
-import org.openmrs.module.reporting.data.person.definition.ObsForPersonDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
 import org.openmrs.module.reporting.definition.configuration.ConfigurationProperty;
+import org.openmrs.module.reporting.definition.configuration.ConfigurationPropertyCachingStrategy;
+import org.openmrs.module.reporting.evaluation.caching.Caching;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +29,13 @@ import java.util.List;
 /**
  * Instead of providing just a List, we guarantee it is a SortedSet
  */
+@Caching(strategy = ConfigurationPropertyCachingStrategy.class)
 public class SortedObsSinceOtherDefinitionDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
 
-	@ConfigurationProperty(required=false)
+	@ConfigurationProperty(required = false)
 	private MappedData<? extends PersonDataDefinition> effectiveDateDefinition;
 
-	@ConfigurationProperty(required=true)
+	@ConfigurationProperty(required = true)
 	private List<Concept> questions;
 
 	public SortedObsSinceOtherDefinitionDataDefinition() {
@@ -48,7 +50,7 @@ public class SortedObsSinceOtherDefinitionDataDefinition extends BaseDataDefinit
 	 * @see org.openmrs.module.reporting.data.DataDefinition#getDataType()
 	 */
 	public Class<?> getDataType() {
-		return SortedObsFromDate.class;
+		return SortedItemsFromDate.class;
 	}
 
 	/**
