@@ -1,7 +1,7 @@
 <openmrs:htmlInclude file="/dwr/util.js"/>
 <openmrs:htmlInclude file="/dwr/interface/DWRAmrsReportService.js"/>
 
-<openmrs:htmlInclude file="/moduleResources/amrsreports/css/amrsreports.css" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/css/amrsreports.css" />
 
 <script>
     $j(document).ready(function(){
@@ -21,20 +21,20 @@
     </li>
     <openmrs:hasPrivilege privilege="View Reports">
         <li <c:if test='<%= request.getRequestURI().contains("queuedReport") %>'>class="active"</c:if>>
-            <a href="${pageContext.request.contextPath}/module/amrsreports/queuedReport.list">
+            <a href="${pageContext.request.contextPath}/module/evrreports/queuedReport.list">
                 Manage EVR Reports
             </a>
         </li>
     </openmrs:hasPrivilege>
     <openmrs:hasPrivilege privilege="View Locations">
         <li <c:if test='<%= request.getRequestURI().contains("facilityList") %>'>class="active"</c:if>>
-            <a href="${pageContext.request.contextPath}/module/amrsreports/facility.list">
+            <a href="${pageContext.request.contextPath}/module/evrreports/facility.list">
                 View MOH Facilities
             </a>
         </li>
         <openmrs:hasPrivilege privilege="View Users">
             <li <c:if test='<%= request.getRequestURI().contains("facilityPrivileges") %>'>class="active"</c:if>>
-                <a href="${pageContext.request.contextPath}/module/amrsreports/facilityPrivileges.form">
+                <a href="${pageContext.request.contextPath}/module/evrreports/facilityPrivileges.form">
                     Manage User/Facility Privileges
                 </a>
             </li>

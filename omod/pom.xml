@@ -3,14 +3,14 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>amrsreports</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<artifactId>evrreports</artifactId>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>amrsreports-omod</artifactId>
+	<artifactId>evrreports-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>AMRS Report Module OMOD</name>
-	<description>OMOD project for AMRS Report Module</description>
+	<name>EVR Report Module OMOD</name>
+	<description>OMOD project for EVR Report Module</description>
 
 	<dependencies>
 

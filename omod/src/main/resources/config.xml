@@ -7,7 +7,7 @@
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
 	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
-	<author>AMPATH Developers (Oliver Mwalo, Nicholas Ingosi, Antony Ojwang', Alfayo Kwatuha, Jeremy Keiper, Willa)</author>
+	<author>Antony Ojwang'</author>
 	<description>
 		${project.parent.description}
 	</description>
@@ -40,7 +40,7 @@
 	
 	<!-- Required Privileges -->
 	<privilege>
-		<name>Manage AMRSReports</name>
+		<name>Manage EVRReports</name>
 		<description>Allows user to access Amrs reports pages/functions</description>
 	</privilege>
 
@@ -96,7 +96,7 @@
                 <include method="getPreARTEnrollmentLocationUuidForPatientUuid"/>
                 <include method="isReportRunnerScheduledTaskOn"/>
             </create>
-            <convert match="org.openmrs.module.amrsreports.UserFacility" converter="bean" />
+            <convert match="org.openmrs.module.evrreports.UserFacility" converter="bean" />
             <convert match="org.openmrs.Location" converter="bean" />
             <convert match="org.openmrs.User" converter="bean"/>
         </allow>

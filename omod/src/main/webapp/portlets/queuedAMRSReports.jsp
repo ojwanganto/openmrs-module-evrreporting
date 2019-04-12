@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
 
-<openmrs:htmlInclude file="/moduleResources/amrsreports/js/diQuery-collapsiblePanel.js"/>
-<openmrs:htmlInclude file="/moduleResources/amrsreports/css/queuedReportsPortlet.css"/>
+<openmrs:htmlInclude file="/moduleResources/evrreports/js/diQuery-collapsiblePanel.js"/>
+<openmrs:htmlInclude file="/moduleResources/evrreports/css/queuedReportsPortlet.css"/>
 
 <div class="queuedReportsSection">
 

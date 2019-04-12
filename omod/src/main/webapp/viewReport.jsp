@@ -2,19 +2,19 @@
 
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<openmrs:require privilege="View Reports" otherwise="/login.htm" redirect="/module/amrsreports/viewReport.form" />
+<openmrs:require privilege="View Reports" otherwise="/login.htm" redirect="/module/evrreports/viewReport.form" />
 
-<openmrs:htmlInclude file="/moduleResources/amrsreports/js/jquery.dataTables.min.js" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/js/jquery.tools.min.js" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/TableTools/js/TableTools.min.js" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/TableTools/js/ZeroClipboard.js" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/js/jspdf.js" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/js/jquery.dataTables.min.js" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/js/jquery.tools.min.js" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/TableTools/js/TableTools.min.js" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/TableTools/js/ZeroClipboard.js" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/js/jspdf.js" />
 
 <openmrs:htmlInclude file="/scripts/jquery/dataTables/css/dataTables.css" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/css/smoothness/jquery-ui-1.8.16.custom.css" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/css/dataTables_jui.css" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/TableTools/css/TableTools.css" />
-<openmrs:htmlInclude file="/moduleResources/amrsreports/TableTools/css/TableTools_JUI.css" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/css/smoothness/jquery-ui-1.8.16.custom.css" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/css/dataTables_jui.css" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/TableTools/css/TableTools.css" />
+<openmrs:htmlInclude file="/moduleResources/evrreports/TableTools/css/TableTools_JUI.css" />
 
 <%@ include file="localHeader.jsp"%>
 
@@ -147,7 +147,7 @@
         <tbody id="tbodydata">
             <c:forEach var="record" items="${records}">
                 <tr>
-                    <td><img src="${pageContext.request.contextPath}/moduleResources/amrsreports/images/format-indent-more.png" id="img" /></td>
+                    <td><img src="${pageContext.request.contextPath}/moduleResources/evrreports/images/format-indent-more.png" id="img" /></td>
                     <c:forEach var="rec" items="${record}">
                         <td>${rec}</td>
                     </c:forEach>

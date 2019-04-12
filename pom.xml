@@ -3,44 +3,29 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>amrsreports</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<artifactId>evrreports</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>AMRS Reports Module</name>
-	<description>Provides easy acess to AMPATH reports, limits access and adds logic rules and cohort definitions for MOH reports.</description>
+	<name>EVR Reports Module</name>
+	<description>A fork of amrs reports module modified to provide easy acess to EVR immunization reports.</description>
 
 	<url>http://wiki.ampath.or.ke/display/data/Comprehensive+Care+Clinic+Pre+ART+Register+MOH+361A</url>
 	
 	<developers>
 		<developer>
-			<name>Jeremy Keiper</name>
+			<name>Antony Ojwang'</name>
 		</developer>
-		<developer>
-			<name>Antony O'jwang</name>
-		</developer>
-		<developer>
-			<name>Alfayo Kwatuha</name>
-		</developer>
-		<developer>
-			<name>Nicholas Ingosi</name>
-		</developer>
-		<developer>
-			<name>Oliver Mwalo</name>
-		</developer>
-        <developer>
-            <name>Mhawila M</name>
-        </developer>
 	</developers>
 	
 	<organization>
-		<name>AMPATH</name>
-		<url>http://www.ampath.or.ke</url>
+		<name>I-TECH</name>
+		<url>http://www.go2itech.org</url>
 	</organization>
 
 	<scm>
-		<connection>scm:git:https://github.com/AMPATH/openmrs-module-amrsreports</connection>
-		<developerConnection>scm:git:https://github.com/AMPATH/openmrs-module-amrsreports</developerConnection>
-		<url>https://github.com/AMPATH/openmrs-module-amrsreports</url>
+		<connection>scm:git:https://github.com/I-TECH/openmrs-module-evrreports</connection>
+		<developerConnection>scm:git:https://github.com/I-TECH/openmrs-module-evrreports</developerConnection>
+		<url>https://github.com/I-TECH/openmrs-module-evrreports</url>
 	  <tag>HEAD</tag>
   </scm>
 

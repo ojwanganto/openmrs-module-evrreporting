@@ -2,12 +2,12 @@
 <%@ include file="/WEB-INF/template/header.jsp" %>
 
 
-<openmrs:require privilege="Run Reports" otherwise="/login.htm" redirect="/module/amrsreports/queuedReport.form"/>
+<openmrs:require privilege="Run Reports" otherwise="/login.htm" redirect="/module/evrreports/queuedReport.form"/>
 
-<openmrs:htmlInclude file="/moduleResources/amrsreports/js/jquery-ui-timepicker-addon.min.js"/>
-<openmrs:htmlInclude file="/moduleResources/amrsreports/js/openmrs-1.9.js"/>
+<openmrs:htmlInclude file="/moduleResources/evrreports/js/jquery-ui-timepicker-addon.min.js"/>
+<openmrs:htmlInclude file="/moduleResources/evrreports/js/openmrs-1.9.js"/>
 
-<openmrs:htmlInclude file="/moduleResources/amrsreports/css/jquery-ui-timepicker-addon.css"/>
+<openmrs:htmlInclude file="/moduleResources/evrreports/css/jquery-ui-timepicker-addon.css"/>
 
 <%@ include file="localHeader.jsp" %>
 

@@ -1,12 +1,12 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
 <%@ include file="/WEB-INF/template/header.jsp" %>
 
-<openmrs:require privilege="View Locations" otherwise="/login.htm" redirect="/module/amrsreports/cccNumbers.list"/>
+<openmrs:require privilege="View Locations" otherwise="/login.htm" redirect="/module/evrreports/cccNumbers.list"/>
 
-<openmrs:htmlInclude file="/moduleResources/amrsreports/js/jquery.dataTables.min.js"/>
+<openmrs:htmlInclude file="/moduleResources/evrreports/js/jquery.dataTables.min.js"/>
 
 <openmrs:htmlInclude file="/scripts/jquery/dataTables/css/dataTables.css"/>
-<openmrs:htmlInclude file="/moduleResources/amrsreports/css/dataTables_jui.css"/>
+<openmrs:htmlInclude file="/moduleResources/evrreports/css/dataTables_jui.css"/>
 
 <%@ include file="localHeader.jsp" %>
 
