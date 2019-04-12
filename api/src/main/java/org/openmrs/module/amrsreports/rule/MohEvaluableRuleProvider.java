@@ -32,7 +32,7 @@ import java.util.zip.ZipFile;
 
 /**
  */
-@Component
+
 public class MohEvaluableRuleProvider extends ClassRuleProvider {
 
 	private static final Log log = LogFactory.getLog(MohEvaluableRuleProvider.class);

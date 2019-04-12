@@ -78,7 +78,7 @@ public class MOH361BReportProvider_0_1 extends ReportProvider {
 
 	public MOH361BReportProvider_0_1() {
 		this.name = "MOH 361B 0.1-SNAPSHOT";
-		this.visible = true;
+		this.visible = false;
 	}
 
 	@Override

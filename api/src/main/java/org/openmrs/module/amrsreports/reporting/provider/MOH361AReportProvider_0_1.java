@@ -68,10 +68,10 @@ import java.util.Properties;
  */
 public class MOH361AReportProvider_0_1 extends ReportProvider {
 
-	public static final String NAME = "MOH 361A 0.1";
+	public static final String NAME = "MOH 510";
 
 	public MOH361AReportProvider_0_1() {
-		this.name = "MOH 361A 0.1";
+		this.name = "MOH 510";
 		this.visible = true;
 	}
 

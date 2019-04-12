@@ -70,7 +70,7 @@ import java.util.Properties;
 public class MOH361AReportProvider_0_2 extends ReportProvider {
 
 	public MOH361AReportProvider_0_2() {
-		this.name = "MOH 361A 0.2-SNAPSHOT";
+		this.name = "MOH 711";
 		this.visible = true;
 	}
 

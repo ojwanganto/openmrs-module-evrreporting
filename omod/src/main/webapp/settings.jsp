@@ -98,7 +98,7 @@
 
 </script>
 
-<h2>AMRS Reports Settings</h2>
+<h2>Reports Settings</h2>
 
 <b class="boxHeader">Required Metadata</b>
 <div class="box" style="width:99%; height:auto; overflow-x:auto;">
@@ -123,7 +123,7 @@
             </td>
         </tr>
 
-        <tr>
+        <%--<tr>
             <td>TB Registration Attribute Type</td>
             <td id="tbRegistrationAttributeType">
                 <form>
@@ -151,14 +151,14 @@
                     <span class="saved">saved</span>
                 </form>
             </td>
-        </tr>
+        </tr>--%>
     </table>
 
 </div>
 
 <br />
 
-<b class="boxHeader">Derived Table Updates</b>
+<%--<b class="boxHeader">Derived Table Updates</b>
 <div class="box" style="width:99%; height:auto; overflow-x:auto; padding: 0.75em 0.5em;">
 
     <form>
@@ -182,6 +182,6 @@
         </div>
     </form>
 
-</div>
+</div>--%>
 
 <%@ include file="/WEB-INF/template/footer.jsp" %>

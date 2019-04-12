@@ -54,7 +54,7 @@
         <reportingVersion>0.7.5</reportingVersion>
         <serializationVersion>0.2.7</serializationVersion>
         <htmlWidgetsVersion>1.6.0</htmlWidgetsVersion>
-        <logicVersion>0.5.1</logicVersion>
+        <logicVersion>0.5.2</logicVersion>
         <openCSVVersion>2.3</openCSVVersion>
         <drughistoryVersion>0.1</drughistoryVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -111,7 +111,7 @@
                 <groupId>org.openmrs.module</groupId>
                 <artifactId>calculation-api</artifactId>
                 <version>${calculationVersion}</version>
-                <type>jar</type>
+				<type>jar</type>
                 <scope>provided</scope>
             </dependency>
 
