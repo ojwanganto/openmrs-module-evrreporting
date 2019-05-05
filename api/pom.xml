@@ -10,7 +10,7 @@
 
 	<artifactId>evrreports-api</artifactId>
 	<packaging>jar</packaging>
-	<name>AMRS Report Module API</name>
+	<name>EVR Report Module API</name>
 	<description>API project for Reporting Module</description>
 
 	<dependencies>

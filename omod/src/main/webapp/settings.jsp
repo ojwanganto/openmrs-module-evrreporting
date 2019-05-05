@@ -108,7 +108,7 @@
             <td>CCC Number Identifier Type</td>
             <td id="cccIdentifierType">
                 <form>
-                    <input type="hidden" name="property" value="amrsreports.cccIdentifierType"/>
+                    <input type="hidden" name="property" value="evrreports.cccIdentifierType"/>
                     <select name="value" onchange="enableSaveFor('cccIdentifierType')">
                         <option value=""></option>
                         <c:forEach items="${identifierTypes}" var="identifierType">
@@ -158,7 +158,7 @@
 
 <br />
 
-<%--<b class="boxHeader">Derived Table Updates</b>
+<b class="boxHeader">Derived Table Updates</b>
 <div class="box" style="width:99%; height:auto; overflow-x:auto; padding: 0.75em 0.5em;">
 
     <form>
@@ -182,6 +182,6 @@
         </div>
     </form>
 
-</div>--%>
+</div>
 
 <%@ include file="/WEB-INF/template/footer.jsp" %>

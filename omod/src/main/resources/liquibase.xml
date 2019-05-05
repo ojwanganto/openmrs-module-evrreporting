@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+
+    <changeSet id="${project.parent.artifactId}-20190505-1615" author="aojwang">
+        <comment>
+            Execute DDL script for ETL
+        </comment>
+        <sqlFile path="sql/DDL.sql" endDelimiter="\$\$" stripComments="true" />
+    </changeSet>
+
+    <changeSet id="${project.parent.artifactId}-20190505-1625" author="aojwang">
+        <comment>
+            Execute Scheduled Updates script for ETL
+        </comment>
+        <sqlFile path="sql/schedule.sql" endDelimiter="\$\$" stripComments="true" />
+    </changeSet>
+
+    <changeSet id="${project.parent.artifactId}-20190505-1727" author="aojwang">
+        <comment>
+            Execute Scheduled Updates script for MOH 710 reporting table
+        </comment>
+        <sqlFile path="sql/moh_710_ddl_schedule.sql" endDelimiter="\$\$" stripComments="true" />
+    </changeSet>
+
+
+    <!--<changeSet id="${project.parent.artifactId}-20190505-1730" author="aojwang">
+        <comment>
+            Sets up ETL tables. Recreation of tables
+        </comment>
+        <sql>
+            CALL create_etl_tables();
+            CALL sp_scheduled_updates();
+            CALL create_moh_710_etl_table();
+            CALL sp_scheduled_moh_710_updates();
+        </sql>
+    </changeSet>-->
+
+
+    <!--Adding scheduled task to periodically refresh ETL tables-->
+<!--    <changeSet id="${project.parent.artifactId}-20171212-1744" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM scheduler_task_config
+                WHERE schedulable_class = 'org.openmrs.module.kenyaemrCharts.task.RefreshETLTablesTask'
+                And name = 'Refresh ETL Tables'
+            </sqlCheck>
+        </preConditions>
+        <comment>Inserting Refresh ETL Tables Task into 'schedule_task_config' table</comment>
+        <insert tableName="scheduler_task_config">
+            <column name="name" value="Refresh ETL Tables" />
+            <column name="description" value="Periodically refreshes ETL Tables" />
+            <column name="schedulable_class" value="org.openmrs.module.kenyaemrCharts.task.RefreshETLTablesTask" />
+            <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
+            <column name="start_time" valueDate="2017-11-28T23:59:59" />
+            <column name="repeat_interval" value="7200" />
+            <column name="start_on_startup" value="1" />
+            <column name="started" value="1" />
+            <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
+            <column name="created_by" value="1" />
+            <column name="uuid" value="ca3c92a7-a312-4a5f-b7f5-fabf4b6122d4" />
+        </insert>
+    </changeSet>-->
+
+</databaseChangeLog>
+

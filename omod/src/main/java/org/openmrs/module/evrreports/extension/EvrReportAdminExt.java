@@ -11,7 +11,7 @@ import org.openmrs.util.PrivilegeConstants;
 /**
  * admin page extension
  */
-public class AmrsReportAdminExt extends AdministrationSectionExt {
+public class EvrReportAdminExt extends AdministrationSectionExt {
 
 	/**
 	 * Defines the privilege required to the see the Administration section
@@ -19,7 +19,7 @@ public class AmrsReportAdminExt extends AdministrationSectionExt {
 	 */
 	@Override
 	public String getRequiredPrivilege() {
-		return ReportingConstants.PRIV_VIEW_REPORTS;
+		return PrivilegeConstants.VIEW_LOCATIONS; //ReportingConstants.PRIV_VIEW_REPORTS;
 	}
 
 	/**
@@ -37,24 +37,20 @@ public class AmrsReportAdminExt extends AdministrationSectionExt {
 	public Map<String, String> getLinks() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		
-		if (Context.hasPrivilege(ReportingConstants.PRIV_VIEW_REPORTS)) {
-			map.put("module/evrreports/queuedReport.list", "Manage AMRS Reports");
-		}
+		/*if (Context.hasPrivilege(ReportingConstants.PRIV_VIEW_REPORTS)) {
+			map.put("module/evrreports/queuedReport.list", "Manage EVR Reports");
+		}*/
+		map.put("module/evrreports/queuedReport.list", "Manage EVR Reports");
 
 		if (Context.hasPrivilege(PrivilegeConstants.VIEW_LOCATIONS)) {
-			map.put("module/evrreports/cccNumbers.list", "Manage CCC Numbers");
 			map.put("module/evrreports/facility.list", "Manage MOH Facilities");
 
 			if (Context.hasPrivilege(PrivilegeConstants.VIEW_USERS)) {
 				map.put("module/evrreports/facilityPrivileges.form", "Manage User/Facility Privileges");
 			}
 
-			map.put("/module/evrreports/cohortCounts.list", "View Cohort Counts");
 		}
-
-		if (Context.hasPrivilege(PrivilegeConstants.VIEW_GLOBAL_PROPERTIES)) {
-			map.put("module/evrreports/settings.form", "Settings");
-		}
+		map.put("module/evrreports/settings.form", "Manage Module settings");
 
 		return map;
 	}

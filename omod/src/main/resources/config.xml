@@ -27,7 +27,7 @@
 	<!-- Extensions -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.AmrsReportAdminExt</class>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.EvrReportAdminExt</class>
 	</extension>
 	
 	<!-- Maps hibernate files, if present -->

@@ -11,12 +11,12 @@ public class AmrsReportsConstants {
 
 	public static final char DEFAULT_CSV_DELIMITER = ',';
 
-    public static final String TB_REGISTRATION_NO_ATTRIBUTE_TYPE = "amrsreports.tbRegistrationAttributeType";
+    public static final String TB_REGISTRATION_NO_ATTRIBUTE_TYPE = "evrreports.tbRegistrationAttributeType";
 	public static final Integer TB_REGISTRATION_NO_ATTRIBUTE_TYPE_DEFAULT = 17;
 
-	public static final String GP_CCC_NUMBER_IDENTIFIER_TYPE = "amrsreports.cccIdentifierType";
+	public static final String GP_CCC_NUMBER_IDENTIFIER_TYPE = "evrreports.cccIdentifierType";
 
-	public static final String GP_PRODUCTION_SERVER_URL = "amrsreports.productionServerURL";
+	public static final String GP_PRODUCTION_SERVER_URL = "evrreports.productionServerURL";
 
 	public static final String TRANSFER_IN = "Transfer In";
 
