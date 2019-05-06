@@ -15,9 +15,9 @@ import org.openmrs.module.evrreports.reporting.provider.ReportProvider;
 import org.openmrs.module.evrreports.service.HIVCareEnrollmentService;
 import org.openmrs.module.evrreports.service.MOHFacilityService;
 import org.openmrs.module.evrreports.service.ReportProviderRegistrar;
-import org.openmrs.module.evrreports.task.AMRSReportsTask;
+import org.openmrs.module.evrreports.task.EVRReportsTask;
 import org.openmrs.module.evrreports.task.RunQueuedReportsTask;
-import org.openmrs.module.evrreports.task.UpdateHIVCareEnrollmentTask;
+import org.openmrs.module.evrreports.task.RefreshETLTablesTask;
 import org.openmrs.module.evrreports.util.TaskRunnerThread;
 import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
@@ -287,12 +287,12 @@ public class DWRAmrsReportService {
 		if (TaskRunnerThread.getInstance().isActive())
 			return "Task already running: " + TaskRunnerThread.getInstance().getCurrentTaskClassname();
 
-		AMRSReportsTask task = null;
+		EVRReportsTask task = null;
 
 //		if (OpenmrsUtil.nullSafeEquals("arvs", taskName))
 //			task = new UpdateARVEncountersTask();
-		if (OpenmrsUtil.nullSafeEquals("enrollment", taskName))
-			task = new UpdateHIVCareEnrollmentTask();
+		if (OpenmrsUtil.nullSafeEquals("all", taskName))
+			task = new RefreshETLTablesTask();
 
 		if (task == null)
 			return null;
@@ -300,7 +300,7 @@ public class DWRAmrsReportService {
 		try {
 			// create a new thread and get it started
 			TaskRunnerThread.getInstance().initialize(task, Context.getUserContext());
-			TaskRunnerThread.getInstance().setName("AMRS Reports Task Runner");
+			TaskRunnerThread.getInstance().setName("EVR Reports Task Runner");
 			TaskRunnerThread.getInstance().setActive(true);
 			TaskRunnerThread.getInstance().start();
 

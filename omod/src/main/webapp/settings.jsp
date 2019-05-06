@@ -98,67 +98,12 @@
 
 </script>
 
-<h2>Reports Settings</h2>
+<h2>Manage ETL Process</h2>
 
-<b class="boxHeader">Required Metadata</b>
-<div class="box" style="width:99%; height:auto; overflow-x:auto;">
-
-    <table cellpadding="4" cellspacing="0">
-        <tr>
-            <td>CCC Number Identifier Type</td>
-            <td id="cccIdentifierType">
-                <form>
-                    <input type="hidden" name="property" value="evrreports.cccIdentifierType"/>
-                    <select name="value" onchange="enableSaveFor('cccIdentifierType')">
-                        <option value=""></option>
-                        <c:forEach items="${identifierTypes}" var="identifierType">
-                            <option value="${identifierType.id}"
-                            <c:if test="${identifierType.id == cccIdentifierType}">selected</c:if>
-                            >${identifierType.name}</option>
-                        </c:forEach>
-                    </select>
-                    <input type="submit" name="save" onclick="return saveGPFor('cccIdentifierType')" value="save"/>
-                    <span class="saved">saved</span>
-                </form>
-            </td>
-        </tr>
-
-        <%--<tr>
-            <td>TB Registration Attribute Type</td>
-            <td id="tbRegistrationAttributeType">
-                <form>
-                    <input type="hidden" name="property" value="amrsreports.tbRegistrationAttributeType"/>
-                    <select name="value" onchange="enableSaveFor('tbRegistrationAttributeType')">
-                        <option value=""></option>
-                        <c:forEach items="${attributeTypes}" var="attributeType">
-                            <option value="${attributeType.id}"
-                            <c:if test="${attributeType.id == tbRegistrationAttributeType}">selected</c:if>
-                            >${attributeType.name}</option>
-                        </c:forEach>
-                    </select>
-                    <input type="submit" name="save" onclick="return saveGPFor('tbRegistrationAttributeType')" value="save"/>
-                    <span class="saved">saved</span>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>Production Server URL</td>
-            <td id="productionServerURL">
-                <form>
-                    <input type="hidden" name="property" value="amrsreports.productionServerURL"/>
-                    <input type="text" name="value" onkeyup="enableSaveFor('productionServerURL')" value="${productionServerURL}" size="60"/>
-                    <input type="submit" name="save" onclick="return saveGPFor('productionServerURL')" value="save"/>
-                    <span class="saved">saved</span>
-                </form>
-            </td>
-        </tr>--%>
-    </table>
-
-</div>
 
 <br />
 
-<b class="boxHeader">Derived Table Updates</b>
+<b class="boxHeader">Refresh ETL Tables</b>
 <div class="box" style="width:99%; height:auto; overflow-x:auto; padding: 0.75em 0.5em;">
 
     <form>
@@ -170,11 +115,7 @@
         </div>
 
         <div id="choices">
-            <!-- // changing to use just a single task to build all three tables
-            <div class="choice"><input type="radio" name="taskName" value="arvs"/> ARV Tables</div>
-            <div class="choice"><input type="radio" name="taskName" value="pregnancy"/> Pregnancy Tables</div>
-            -->
-            <div class="choice"><input type="radio" name="taskName" value="enrollment"/> HIV Care Enrollment Table</div>
+            <div class="choice"><input type="radio" name="taskName" value="enrollment"/> </div>
         </div>
 
         <div id="buttons">

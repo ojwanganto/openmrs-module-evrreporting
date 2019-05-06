@@ -5,7 +5,7 @@ import org.openmrs.module.evrreports.ReportQueueProcessor;
 /**
  * Scheduled task for running queued reports
  */
-public class RunQueuedReportsTask extends AMRSReportsTask {
+public class RunQueuedReportsTask extends EVRReportsTask {
 
 	// Instance of processor
 	private static ReportQueueProcessor processor = null;

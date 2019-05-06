@@ -6,9 +6,9 @@ import org.openmrs.api.APIException;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
 /**
- * Abstract task for AMRS Reports tasks where we want only one to run at a time
+ * Abstract task for EVR Reports tasks where we want only one to run at a time
  */
-public abstract class AMRSReportsTask extends AbstractTask {
+public abstract class EVRReportsTask extends AbstractTask {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
@@ -17,21 +17,21 @@ public abstract class AMRSReportsTask extends AbstractTask {
 	 */
 	public void execute() {
 
-		if (AMRSReportsCommonTaskLock.getInstance().isLocked()) {
+		if (EVRReportsCommonTaskLock.getInstance().isLocked()) {
 			return;
 		}
 
-		if (!AMRSReportsCommonTaskLock.getInstance().getLock(this.getClass())) {
+		if (!EVRReportsCommonTaskLock.getInstance().getLock(this.getClass())) {
 			return;
 		}
 
 		try {
 			this.doExecute();
 		} catch (Exception e) {
-			log.error("Error running AMRS reports task", e);
-			throw new APIException("Error running AMRS reports task", e);
+			log.error("Error running EVR reports task", e);
+			throw new APIException("Error running EVR reports task", e);
 		} finally {
-			if (!AMRSReportsCommonTaskLock.getInstance().releaseLock(this.getClass()))
+			if (!EVRReportsCommonTaskLock.getInstance().releaseLock(this.getClass()))
 				log.error("Could not release lock.");
 
 		}

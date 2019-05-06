@@ -40,11 +40,11 @@
 
 
     <!--Adding scheduled task to periodically refresh ETL tables-->
-<!--    <changeSet id="${project.parent.artifactId}-20171212-1744" author="aojwang">
+    <changeSet id="${project.parent.artifactId}-20190506-2344" author="aojwang">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.kenyaemrCharts.task.RefreshETLTablesTask'
+                WHERE schedulable_class = 'org.openmrs.module.evrreports.task.RefreshETLTablesTask'
                 And name = 'Refresh ETL Tables'
             </sqlCheck>
         </preConditions>
@@ -52,17 +52,17 @@
         <insert tableName="scheduler_task_config">
             <column name="name" value="Refresh ETL Tables" />
             <column name="description" value="Periodically refreshes ETL Tables" />
-            <column name="schedulable_class" value="org.openmrs.module.kenyaemrCharts.task.RefreshETLTablesTask" />
+            <column name="schedulable_class" value="org.openmrs.module.evrreports.task.RefreshETLTablesTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
             <column name="start_time" valueDate="2017-11-28T23:59:59" />
-            <column name="repeat_interval" value="7200" />
-            <column name="start_on_startup" value="1" />
+            <column name="repeat_interval" value="86400" />
+            <column name="start_on_startup" value="0" />
             <column name="started" value="1" />
             <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
             <column name="created_by" value="1" />
             <column name="uuid" value="ca3c92a7-a312-4a5f-b7f5-fabf4b6122d4" />
         </insert>
-    </changeSet>-->
+    </changeSet>
 
 </databaseChangeLog>
 

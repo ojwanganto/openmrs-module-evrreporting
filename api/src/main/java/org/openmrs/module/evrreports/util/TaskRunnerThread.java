@@ -5,7 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
-import org.openmrs.module.evrreports.task.AMRSReportsTask;
+import org.openmrs.module.evrreports.task.EVRReportsTask;
 import org.openmrs.util.PrivilegeConstants;
 
 public class TaskRunnerThread extends Thread {
@@ -27,7 +27,7 @@ public class TaskRunnerThread extends Thread {
 	/**
 	 * Task to be executed by this thread
 	 */
-	private AMRSReportsTask task = null;
+	private EVRReportsTask task = null;
 
 	/**
 	 * Flag to keep track of the status of the migration process
@@ -50,7 +50,7 @@ public class TaskRunnerThread extends Thread {
 	/**
 	 * Constructor to initialize variables
 	 */
-	public void initialize(AMRSReportsTask task, UserContext userContext) {
+	public void initialize(EVRReportsTask task, UserContext userContext) {
 		this.task = task;
 		this.userContext = userContext;
 		this.active = false;
@@ -92,11 +92,11 @@ public class TaskRunnerThread extends Thread {
 		this.active = active;
 	}
 
-	public AMRSReportsTask getTask() {
+	public EVRReportsTask getTask() {
 		return task;
 	}
 
-	public void setTask(AMRSReportsTask task) {
+	public void setTask(EVRReportsTask task) {
 		this.task = task;
 	}
 

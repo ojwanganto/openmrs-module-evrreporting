@@ -6,9 +6,9 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Common task locking mechanism to ensure only one task relying on the lock can run at a given time
  */
-public class AMRSReportsCommonTaskLock {
+public class EVRReportsCommonTaskLock {
 
-	static private AMRSReportsCommonTaskLock instance = null;
+	static private EVRReportsCommonTaskLock instance = null;
 	static private Boolean locked;
 	static private Class lastLockingClass;
 
@@ -17,7 +17,7 @@ public class AMRSReportsCommonTaskLock {
 	/**
 	 * initializes as unlocked
 	 */
-	public AMRSReportsCommonTaskLock() {
+	public EVRReportsCommonTaskLock() {
 		locked = false;
 		lastLockingClass = null;
 	}
@@ -25,9 +25,9 @@ public class AMRSReportsCommonTaskLock {
 	/**
 	 * gets the static instance of this class
 	 */
-	public static AMRSReportsCommonTaskLock getInstance() {
+	public static EVRReportsCommonTaskLock getInstance() {
 		if (instance == null)
-			instance = new AMRSReportsCommonTaskLock();
+			instance = new EVRReportsCommonTaskLock();
 		return instance;
 	}
 
