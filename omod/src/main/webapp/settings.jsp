@@ -115,7 +115,7 @@
         </div>
 
         <div id="choices">
-            <div class="choice"><input type="radio" name="taskName" value="enrollment"/> </div>
+            <div class="choice"><input type="radio" name="taskName" value="all"/> Refresh ETL Tables</div>
         </div>
 
         <div id="buttons">
