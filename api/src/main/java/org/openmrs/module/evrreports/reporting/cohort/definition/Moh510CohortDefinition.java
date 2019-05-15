@@ -10,6 +10,7 @@
 package org.openmrs.module.evrreports.reporting.cohort.definition;
 
 import org.openmrs.Encounter;
+import org.openmrs.module.reporting.cohort.definition.BaseCohortDefinition;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.definition.configuration.ConfigurationProperty;
 import org.openmrs.module.reporting.definition.configuration.ConfigurationPropertyCachingStrategy;
@@ -24,7 +25,7 @@ import java.util.Date;
  */
 @Caching(strategy = ConfigurationPropertyCachingStrategy.class)
 @Localized("reporting.moh510Cohort")
-public class Moh510CohortDefinition extends BaseQuery<Encounter> implements EncounterQuery {
+public class Moh510CohortDefinition extends BaseCohortDefinition {
 
     @ConfigurationProperty
     private Date asOfDate;

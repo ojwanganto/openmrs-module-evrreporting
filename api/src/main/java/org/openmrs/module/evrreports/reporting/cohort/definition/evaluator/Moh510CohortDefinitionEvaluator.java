@@ -11,49 +11,59 @@ package org.openmrs.module.evrreports.reporting.cohort.definition.evaluator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Cohort;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.evrreports.reporting.cohort.definition.Moh510CohortDefinition;
-import org.openmrs.module.reporting.common.ObjectUtil;
+import org.openmrs.module.reporting.cohort.EvaluatedCohort;
+import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.evaluator.CohortDefinitionEvaluator;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
 import org.openmrs.module.reporting.evaluation.querybuilder.SqlQueryBuilder;
 import org.openmrs.module.reporting.evaluation.service.EvaluationService;
-import org.openmrs.module.reporting.query.encounter.EncounterQueryResult;
-import org.openmrs.module.reporting.query.encounter.definition.EncounterQuery;
-import org.openmrs.module.reporting.query.encounter.evaluator.EncounterQueryEvaluator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * Evaluator for patients for HTS Register
  */
 @Handler(supports = {Moh510CohortDefinition.class})
-public class Moh510CohortDefinitionEvaluator implements EncounterQueryEvaluator {
+public class Moh510CohortDefinitionEvaluator implements CohortDefinitionEvaluator {
 
-    private final Log log = LogFactory.getLog(this.getClass());
+	private final Log log = LogFactory.getLog(this.getClass());
 	@Autowired
 	EvaluationService evaluationService;
 
-	public EncounterQueryResult evaluate(EncounterQuery definition, EvaluationContext context) throws EvaluationException {
-		context = ObjectUtil.nvl(context, new EvaluationContext());
-		EncounterQueryResult queryResult = new EncounterQueryResult(definition, context);
+	@Override
+	public EvaluatedCohort evaluate(CohortDefinition cohortDefinition, EvaluationContext context) throws EvaluationException {
 
-		String qry = "select i.encounter_id \n" +
-				"from kenyaemr_etl.etl_hei_immunization i inner join kenyaemr_etl.etl_hei_enrollment e on e.patient_id=i.patient_id\n" +
-				"where e.visit_date between date(:startDate) and (:endDate) ; ";
+		Moh510CohortDefinition definition = (Moh510CohortDefinition) cohortDefinition;
+
+		if (definition == null)
+			return null;
+
+		Cohort newCohort = new Cohort();
+
+		String qry = "select d.patient_id \n" +
+				"from openmrs_etl.etl_patient_demographics d left join openmrs_etl.etl_immunisations i \n" +
+				"on d.patient_id = i.patient_id where (d.date_created between :startDate and :endDate)";
 
 		SqlQueryBuilder builder = new SqlQueryBuilder();
 		builder.append(qry);
-		Date startDate = (Date)context.getParameterValue("startDate");
-		Date endDate = (Date)context.getParameterValue("endDate");
+		Date startDate = (Date) context.getParameterValue("startDate");
+		Date endDate = (Date) context.getParameterValue("endDate");
 		builder.addParameter("endDate", endDate);
 		builder.addParameter("startDate", startDate);
+		List<Integer> ptIds = evaluationService.evaluateToList(builder, Integer.class, context);
 
-		List<Integer> results = evaluationService.evaluateToList(builder, Integer.class, context);
-		queryResult.getMemberIds().addAll(results);
-		return queryResult;
+		newCohort.setMemberIds(new HashSet<Integer>(ptIds));
+
+
+		return new EvaluatedCohort(newCohort, definition, context);
 	}
 
 }
+
