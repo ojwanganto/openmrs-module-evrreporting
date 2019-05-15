@@ -16,16 +16,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-import static org.openmrs.module.kenyacore.report.ReportUtils.map;
+import static org.openmrs.module.evrreports.util.MOHReportUtil.map;
 
 /**
  * Library of common dimension definitions
  */
 @Component
-public class CommonDimensionLibrary {
+public class EVRCommonDimensionLibrary {
 
-    @Autowired
-    private CommonCohortLibrary commonCohortLibrary;
+    //@Autowired
+    private EVRCommonCohortLibrary commonCohortLibrary = new EVRCommonCohortLibrary();
 
     /**
      * Gender dimension

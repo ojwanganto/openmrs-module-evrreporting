@@ -68,24 +68,27 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		// find the report provider
 		ReportProvider reportProvider = ReportProviderRegistrar.getInstance().getReportProviderByName(queuedReport.getReportName());
 
-		CohortDefinition cohortDefinition = reportProvider.getCohortDefinition();
-		cohortDefinition.addParameter(new Parameter("facility", "Facility", MOHFacility.class));
+		/*CohortDefinition cohortDefinition = reportProvider.getCohortDefinition();
+		cohortDefinition.addParameter(new Parameter("facility", "Facility", MOHFacility.class));*/
 
 		ReportDefinition reportDefinition = reportProvider.getReportDefinition();
 		reportDefinition.addParameter(new Parameter("facility", "Facility", MOHFacility.class));
-
+		reportDefinition.addParameter(new Parameter("startDate", "Start Date", Date.class));
+		reportDefinition.addParameter(new Parameter("endDate", "End Date", Date.class));
 		// try rendering the report
 		EvaluationContext evaluationContext = new EvaluationContext();
 
 		// set up evaluation context values
 		evaluationContext.addParameterValue("facility", queuedReport.getFacility());
 		evaluationContext.setEvaluationDate(queuedReport.getEvaluationDate());
+		evaluationContext.addParameterValue("startDate", queuedReport.getEvaluationDate());
+		evaluationContext.addParameterValue("endDate", queuedReport.getEvaluationDate());
 
 		StopWatch timer = new StopWatch();
 		timer.start();
 
 		// get the cohort
-		CohortDefinitionService cohortDefinitionService = Context.getService(CohortDefinitionService.class);
+		/*CohortDefinitionService cohortDefinitionService = Context.getService(CohortDefinitionService.class);
 		Cohort cohort = cohortDefinitionService.evaluate(cohortDefinition, evaluationContext);
 		evaluationContext.setBaseCohort(cohort);
 
@@ -107,8 +110,8 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		// update and save the cohort
 		savedCohort.setMemberIds(cohort.getMemberIds());
 		Context.getCohortService().saveCohort(savedCohort);
-
-		timer.start();
+*/
+		//timer.start();
 
 		// get the time the report was started (not finished)
 		Date startTime = Calendar.getInstance().getTime();
@@ -119,8 +122,8 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 
 		timer.stop();
 
-		log.info("Time for rendering " + cohort.getSize() + "-person cohort: " + cohortTime);
-		log.info("Time for rendering " + cohort.getSize() + "-person report: " + timer.toString());
+		/*log.info("Time for rendering " + cohort.getSize() + "-person cohort: " + cohortTime);
+		log.info("Time for rendering " + cohort.getSize() + "-person report: " + timer.toString());*/
 
 		// find the directory to put the file in
 		AdministrationService as = Context.getAdministrationService();

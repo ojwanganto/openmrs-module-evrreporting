@@ -11,89 +11,49 @@ package org.openmrs.module.evrreports.reporting.cohort.definition.evaluator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Cohort;
-import org.openmrs.Location;
 import org.openmrs.annotation.Handler;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.evrreports.reporting.cohort.definition.Moh361BCohortDefinition;
 import org.openmrs.module.evrreports.reporting.cohort.definition.Moh510CohortDefinition;
-import org.openmrs.module.reporting.cohort.EvaluatedCohort;
-import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.SqlCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.evaluator.CohortDefinitionEvaluator;
-import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
+import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
+import org.openmrs.module.reporting.evaluation.querybuilder.SqlQueryBuilder;
+import org.openmrs.module.reporting.evaluation.service.EvaluationService;
+import org.openmrs.module.reporting.query.encounter.EncounterQueryResult;
+import org.openmrs.module.reporting.query.encounter.definition.EncounterQuery;
+import org.openmrs.module.reporting.query.encounter.evaluator.EncounterQueryEvaluator;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Evaluator for patients for HTS Register
  */
 @Handler(supports = {Moh510CohortDefinition.class})
-public class Moh510CohortDefinitionEvaluator implements CohortDefinitionEvaluator {
+public class Moh510CohortDefinitionEvaluator implements EncounterQueryEvaluator {
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	private final Log log = LogFactory.getLog(this.getClass());
+    private final Log log = LogFactory.getLog(this.getClass());
+	@Autowired
+	EvaluationService evaluationService;
 
-	@Override
-	public EvaluatedCohort evaluate(CohortDefinition cohortDefinition, EvaluationContext context) throws EvaluationException {
+	public EncounterQueryResult evaluate(EncounterQuery definition, EvaluationContext context) throws EvaluationException {
+		context = ObjectUtil.nvl(context, new EvaluationContext());
+		EncounterQueryResult queryResult = new EncounterQueryResult(definition, context);
 
-		Moh361BCohortDefinition definition = (Moh361BCohortDefinition) cohortDefinition;
+		String qry = "select i.encounter_id \n" +
+				"from kenyaemr_etl.etl_hei_immunization i inner join kenyaemr_etl.etl_hei_enrollment e on e.patient_id=i.patient_id\n" +
+				"where e.visit_date between date(:startDate) and (:endDate) ; ";
 
-		if (definition == null)
-			return null;
+		SqlQueryBuilder builder = new SqlQueryBuilder();
+		builder.append(qry);
+		Date startDate = (Date)context.getParameterValue("startDate");
+		Date endDate = (Date)context.getParameterValue("endDate");
+		builder.addParameter("endDate", endDate);
+		builder.addParameter("startDate", startDate);
 
-
-		if (definition.getFacility() == null)
-			return null;
-
-
-		String reportDate = sdf.format(context.getEvaluationDate());
-		List<Location> locationList = new ArrayList<Location>();
-		locationList.addAll(definition.getFacility().getLocations());
-		context.addParameterValue("locationList", locationList);
-
-		String sql =
-				"select patient_id" +
-						" from amrsreports_hiv_care_enrollment " +
-						" where " +
-						"  first_arv_date is not NULL" +
-						"  and enrollment_date is not NULL" +
-						"  and first_arv_date <= ':reportDate'" +
-						"  and first_arv_location_id in ( :locationList )";
-
-        /*add transfer ins*/
-
-		for (Location location : locationList) {
-			String personAttributeQuery =
-					" union " +
-							" select pa.person_id" +
-							" from person_attribute pa join amrsreports_hiv_care_enrollment ae" +
-							"     on pa.person_id = ae.patient_id" +
-							"       and ae.first_arv_date is not null" +
-							"       and ae.first_arv_date <= ':reportDate'" +
-							"   join encounter e " +
-							"     on e.patient_id = pa.person_id" +
-							"       and e.voided = 0" +
-							"       and e.location_id in ( :locationList )" +
-							" where (pa.voided = 0" +
-							"        or (pa.voided = 1 and pa.void_reason like 'New value: %'))" +
-							"   and pa.date_created >= ae.first_arv_date" +
-							"   and pa.person_attribute_type_id = 7" +
-							"   and pa.value = '" + location.getLocationId() + "'" +
-							"   and pa.date_created <= ':reportDate'";
-
-			sql = sql + personAttributeQuery;
-		}
-
-
-
-		SqlCohortDefinition sqlCohortDefinition = new SqlCohortDefinition(sql.replaceAll(":reportDate", reportDate));
-		Cohort results = Context.getService(CohortDefinitionService.class).evaluate(sqlCohortDefinition, context);
-
-		return new EvaluatedCohort(results, sqlCohortDefinition, context);
+		List<Integer> results = evaluationService.evaluateToList(builder, Integer.class, context);
+		queryResult.getMemberIds().addAll(results);
+		return queryResult;
 	}
+
 }

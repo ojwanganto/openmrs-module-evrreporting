@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class Moh710CohortLibrary {
+public class EVRMoh710CohortLibrary {
 
 
-	public Moh710CohortLibrary() {
+	public EVRMoh710CohortLibrary() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -17,6 +17,7 @@ package org.openmrs.module.evrreports.reporting.builder;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
+import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * Abstract base class for all report builders
  */
-public abstract class AbstractReportBuilder {
+public abstract class EVRAbstractReportBuilder {
 
 	/**
 	 * Builds the report definition
@@ -36,6 +37,7 @@ public abstract class AbstractReportBuilder {
 		definition.setName(name);
 		definition.setDescription(description);
 		definition.addParameters(getParameters());
+
 
 		// Add all datasets
 		for (Mapped<DataSetDefinition> dataset : buildDataSets(definition)) {
@@ -57,4 +59,6 @@ public abstract class AbstractReportBuilder {
 	 * @return the mapped datasets
 	 */
 	protected abstract List<Mapped<DataSetDefinition>> buildDataSets(ReportDefinition report);
+
+	protected abstract ReportDesign getReportDesign();
 }

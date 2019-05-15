@@ -9,38 +9,47 @@
  */
 package org.openmrs.module.evrreports.reporting.builder;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.APIException;
 import org.openmrs.module.evrreports.reporting.ColumnParameters;
 import org.openmrs.module.evrreports.reporting.EmrReportingUtils;
-import org.openmrs.module.evrreports.reporting.library.MOH710.Moh710IndicatorLibrary;
-import org.openmrs.module.evrreports.reporting.shared.common.CommonDimensionLibrary;
+import org.openmrs.module.evrreports.reporting.library.MOH710.EVRMoh710IndicatorLibrary;
+import org.openmrs.module.evrreports.reporting.shared.common.EVRCommonDimensionLibrary;
 import org.openmrs.module.evrreports.util.MOHReportUtil;
 import org.openmrs.module.reporting.dataset.definition.CohortIndicatorDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
+import org.openmrs.module.reporting.report.ReportDesign;
+import org.openmrs.module.reporting.report.ReportDesignResource;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
+import org.openmrs.module.reporting.report.renderer.ExcelTemplateRenderer;
+import org.openmrs.util.OpenmrsClassLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * MOH 710 Report
  */
 @Component
-public class Moh710ReportBuilder extends AbstractReportBuilder {
+public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 
-	protected static final Log log = LogFactory.getLog(Moh710ReportBuilder.class);
+	protected static final Log log = LogFactory.getLog(EVRMoh710ReportBuilder.class);
+
+	//@Autowired
+	private EVRMoh710IndicatorLibrary moh710Indicators = new EVRMoh710IndicatorLibrary();
 
 	@Autowired
-	private Moh710IndicatorLibrary moh710Indicators;
-
-	@Autowired
-	private CommonDimensionLibrary commonDimensions;
+	private EVRCommonDimensionLibrary commonDimensions;
 
 	/**
 	 * @see 
@@ -65,6 +74,37 @@ public class Moh710ReportBuilder extends AbstractReportBuilder {
 		);
 	}
 
+	@Override
+	protected ReportDesign getReportDesign() {
+		ReportDesign design = new ReportDesign();
+		design.setName("MOH 710 Report Design");
+		design.setReportDefinition(this.build("MOH 710", "MOH 710"));
+		design.setRendererType(ExcelTemplateRenderer.class);
+
+		Properties props = new Properties();
+		//props.put("repeatingSections", "sheet:1,row:4,dataset:allPatients");
+
+		design.setProperties(props);
+
+		ReportDesignResource resource = new ReportDesignResource();
+		resource.setName("MOH_710_Report.xls");
+		InputStream is = OpenmrsClassLoader.getInstance().getResourceAsStream("templates/moh710.xls");
+
+		if (is == null)
+			throw new APIException("Could not find report template.");
+
+		try {
+			resource.setContents(IOUtils.toByteArray(is));
+		} catch (IOException ex) {
+			throw new APIException("Could not create report design for MOH 710 Report.", ex);
+		}
+
+		IOUtils.closeQuietly(is);
+		design.addResource(resource);
+
+		return design;
+	}
+
 
 	/**
 	 * Creates the dataset for section #1: Immunizations
@@ -79,8 +119,8 @@ public class Moh710ReportBuilder extends AbstractReportBuilder {
 		dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
 
 
-
-		dsd.addDimension("age", MOHReportUtil.map(commonDimensions.moh710AgeGroups(), "onDate=${endDate}"));
+		EVRCommonDimensionLibrary commDim = new EVRCommonDimensionLibrary();
+		dsd.addDimension("age", MOHReportUtil.map(commDim.moh710AgeGroups(), "onDate=${endDate}"));
 		ColumnParameters infantLess_1 = new ColumnParameters(null, "<1", "age=<1");
 		ColumnParameters infantAtleast_1 = new ColumnParameters(null, ">=1", "age=>=1");
 

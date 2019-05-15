@@ -38,7 +38,7 @@ public class ReportQueueProcessor {
 		try {
 			Context.getService(QueuedReportService.class).processQueuedReport(queuedReport);
 		} catch (Throwable e) {
-			log.error("Unable to process amrs reports queue!", e);
+			log.error("Unable to process EVR reports queue!", e);
             queuedReport.setStatus(QueuedReport.STATUS_ERROR);
             Context.getService(QueuedReportService.class).saveQueuedReport(queuedReport);
 		}

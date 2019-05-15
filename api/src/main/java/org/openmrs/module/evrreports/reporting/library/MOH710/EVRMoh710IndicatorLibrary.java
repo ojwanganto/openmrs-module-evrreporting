@@ -17,10 +17,10 @@ import static org.openmrs.module.evrreports.util.MOHReportUtil.map;
 import static org.openmrs.module.evrreports.util.MOHReportUtil.cohortIndicator;
 
 @Component
-public class Moh710IndicatorLibrary {
+public class EVRMoh710IndicatorLibrary {
 
-	@Autowired
-	private Moh710CohortLibrary moh710CohortLibrary;
+	//@Autowired
+	private EVRMoh710CohortLibrary moh710CohortLibrary = new EVRMoh710CohortLibrary();
 
 /*	public CohortIndicator givenRotaVirusVaccineAgeLessThan1Year(Integer sequenceNumber) {
 

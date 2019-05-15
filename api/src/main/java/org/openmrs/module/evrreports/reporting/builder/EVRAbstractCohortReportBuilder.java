@@ -27,10 +27,10 @@ import java.util.List;
 /**
  * Abstract base class for report builders which build cohort reports - i.e. one row-per-patient dataset
  */
-public abstract class AbstractCohortReportBuilder extends AbstractReportBuilder {
+public abstract class EVRAbstractCohortReportBuilder extends EVRAbstractReportBuilder {
 
 	/**
-	 * @see AbstractReportBuilder
+	 * @see EVRAbstractReportBuilder
 	 */
 	@Override
 	protected List<Parameter> getParameters() {
@@ -38,7 +38,7 @@ public abstract class AbstractCohortReportBuilder extends AbstractReportBuilder 
 	}
 
 	/**
-	 * @see AbstractReportBuilder
+	 * @see EVRAbstractReportBuilder
 	 */
 	@Override
 	protected List<Mapped<DataSetDefinition>> buildDataSets(ReportDefinition rd) {
