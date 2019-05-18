@@ -64,10 +64,10 @@
 
                             <span class="reportName">${r.reportName}</span>
 
-                            <span class="evaluationDate">as of <openmrs:formatDate date="${r.evaluationDate}"
+                            <span class="evaluationDate">end date of  <openmrs:formatDate date="${r.evaluationDate}"
                                                                                    type="textbox"/></span>
 
-                            <span class="scheduledDate">ran on <openmrs:formatDate date="${r.dateScheduled}"
+                            <span class="scheduledDate">start date of <openmrs:formatDate date="${r.dateScheduled}"
                                                                                    format="${model.datetimeFormat}"/></span>
                         </div>
                     </c:forEach>

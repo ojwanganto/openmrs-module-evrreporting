@@ -14,6 +14,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.module.evrreports.reporting.cohort.definition.Moh510CohortDefinition;
+import org.openmrs.module.evrreports.reporting.data.ClientIdentifierDataDefinition;
+import org.openmrs.module.evrreports.reporting.data.ClientParentGuardianNameDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.DateOfVaccineDataDefinition;
 import org.openmrs.module.evrreports.util.MOHReportUtil;
 import org.openmrs.module.reporting.data.DataDefinition;
@@ -21,7 +23,6 @@ import org.openmrs.module.reporting.data.converter.BirthdateConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
-import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.BirthdateDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.ConvertedPersonDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.GenderDataDefinition;
@@ -128,39 +129,49 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 */
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-		dsd.addColumn("id", new PersonIdDataDefinition(), "");
+		//dsd.addColumn("id", new PersonIdDataDefinition(), "");
 		//dsd.addColumn("Visit Date", new EncounterDatetimeDataDefinition(), "", new DateConverter(DATE_FORMAT));
-		dsd.addColumn("Serial Number", new PersonIdDataDefinition(), "");
+		//dsd.addColumn("Serial Number", new PersonIdDataDefinition(), "");
 		//dsd.addColumn("CWC Number", identifierDef, "");
 		dsd.addColumn("Name", nameDef, "");
 		dsd.addColumn("Sex", new GenderDataDefinition(), "");
 		dsd.addColumn("Date of Birth", new BirthdateDataDefinition(), "", new BirthdateConverter(DATE_FORMAT));
-        /*dsd.addColumn("Date first seen", new ObsForPersonDataDefinition("Date first seen", TimeQualifier.FIRST, Dictionary.getConcept(Dictionary.DATE_FIRST_SEEN), null, null), "", new ObsValueDatetimeConverter());
+
+		/*dsd.addColumn("Date first seen", new ObsForPersonDataDefinition("Date first seen", TimeQualifier.FIRST, Dictionary.getConcept(Dictionary.DATE_FIRST_SEEN), null, null), "", new ObsValueDatetimeConverter());
         dsd.addColumn("Fathers full name", new CalculationDataDefinition("Father's full name", new ParentCalculation("Father")), "", new RDQACalculationResultConverter());
         dsd.addColumn("Mothers full name", new CalculationDataDefinition("Mother's full name", new ParentCalculation("Mother")), "", new RDQACalculationResultConverter());
         dsd.addColumn("Village_Estate_Landmark", new CalculationDataDefinition("Village/Estate/Landmark", new PersonAddressCalculation()), "", new RDQACalculationResultConverter());
         dsd.addColumn("Telephone Number", new CalculationDataDefinition("Telephone Number", new PersonAttributeCalculation("Telephone contact")), "", new RDQACalculationResultConverter());
 */
+        dsd.addColumn("id", new ClientIdentifierDataDefinition("id", "kip_id"), "");
+        dsd.addColumn("Serial Number", new ClientIdentifierDataDefinition("Serial Number", "permanent_register_number"), "");
+        dsd.addColumn("CWC Number", new ClientIdentifierDataDefinition("CWC Number", "cwc_number"), "");
+
+        dsd.addColumn("Fathers full name", new ClientParentGuardianNameDataDefinition("Fathers full name", "father"), "");
+        dsd.addColumn("Mothers full name", new ClientParentGuardianNameDataDefinition("Mothers full name", "mother"), "");
+
+
         dsd.addColumn("BCG", new DateOfVaccineDataDefinition("BCG", "bcg_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("Polio birth Dose", new DateOfVaccineDataDefinition("Polio birth Dose", "opv_0_vx_date"), "",  new DateConverter(DATE_FORMAT));
         dsd.addColumn("OPV 1", new DateOfVaccineDataDefinition("OPV 1", "opv_1_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("OPV 2", new DateOfVaccineDataDefinition("OPV 2", "opv_2_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("OPV 3", new DateOfVaccineDataDefinition("OPV 3", "opv_3_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("IPV", new DateOfVaccineDataDefinition("IPV", "ipv_vx_date"), "",new DateConverter(DATE_FORMAT));
-        //dsd.addColumn("DPT_HepB_Hib 1", new DateOfVaccineDataDefinition("DPT/Hep.B/Hib 1", "DPT_Hep_B_Hib_1"), "", new DateConverter(DATE_FORMAT));
-        //dsd.addColumn("DPT_HepB_Hib 2", new DateOfVaccineDataDefinition("DPT/Hep.B/Hib 2", "DPT_Hep_B_Hib_2"), "", new DateConverter(DATE_FORMAT));
-        //dsd.addColumn("DPT_HepB_Hib 3", new DateOfVaccineDataDefinition("DPT/Hep.B/Hib 3", "DPT_Hep_B_Hib_3"), "", new DateConverter(DATE_FORMAT));
+        dsd.addColumn("DPT_HepB_Hib 1", new DateOfVaccineDataDefinition("DPT/Hep.B/Hib 1", "penta_1_vx_date"), "", new DateConverter(DATE_FORMAT));
+        dsd.addColumn("DPT_HepB_Hib 2", new DateOfVaccineDataDefinition("DPT/Hep.B/Hib 2", "penta_2_vx_date"), "", new DateConverter(DATE_FORMAT));
+        dsd.addColumn("DPT_HepB_Hib 3", new DateOfVaccineDataDefinition("DPT/Hep.B/Hib 3", "penta_3_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("PCV 10(Pneumococcal) 1", new DateOfVaccineDataDefinition("PCV 10(Pneumococcal) 1", "pcv_1_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("PCV 10(Pneumococcal) 2", new DateOfVaccineDataDefinition("PCV 10(Pneumococcal) 2", "pcv_2_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("PCV 10(Pneumococcal) 3", new DateOfVaccineDataDefinition("PCV 10(Pneumococcal) 3", "pcv_3_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("ROTA 1", new DateOfVaccineDataDefinition("ROTA 1", "rota_1_vx_date"), "", new DateConverter(DATE_FORMAT));
         dsd.addColumn("ROTA 2", new DateOfVaccineDataDefinition("ROTA 2", "rota_2_vx_date"), "", new DateConverter(DATE_FORMAT));
-       /* dsd.addColumn("Vitamin A", new DateOfVitaminADataDefinition("Vitamin A"), "", null);
-        dsd.addColumn("Measles 1", new DateOfVaccineDataDefinition("Measles 1", "Measles_rubella_1"), "", new DateConverter(DATE_FORMAT));
-        dsd.addColumn("Yellow Fever", new DateOfVaccineDataDefinition("Yellow Fever", "Yellow_fever"), "", new DateConverter(DATE_FORMAT));
-        dsd.addColumn("Fully Immunized Child", new DateOfFullImmunizationDataDefinition("Fully Immunized Child"), "", new DateConverter(DATE_FORMAT));
-        dsd.addColumn("Measles 2", new DateOfVaccineDataDefinition("Measles 2", "Measles_rubella_2"), "", new DateConverter(DATE_FORMAT));
-        */
+        dsd.addColumn("Vitamin A", new DateOfVaccineDataDefinition("Vitamin A", "vit_at_6_vx_date"), "", new DateConverter(DATE_FORMAT));
+
+        dsd.addColumn("Measles 1", new DateOfVaccineDataDefinition("Measles 1", "mr_1_vx_date"), "", new DateConverter(DATE_FORMAT));
+        dsd.addColumn("Yellow Fever", new DateOfVaccineDataDefinition("Yellow Fever", "yf_vx_date"), "", new DateConverter(DATE_FORMAT));
+        //dsd.addColumn("Fully Immunized Child", null, "");
+        dsd.addColumn("Measles 2", new DateOfVaccineDataDefinition("Measles 2", "mr_2_vx_date"), "", new DateConverter(DATE_FORMAT));
+
         Moh510CohortDefinition cd = new Moh510CohortDefinition();
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
@@ -168,24 +179,5 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 		dsd.addRowFilter(cd, paramMapping);
 		return dsd;
 	}
-
-	/*("SELECT d.kip_id, d.permanent_register_number, d.cwc_number, "
-		        + " concat(coalesce(d.given_name,''), ' ', coalesce(d.middle_name,''), ' ', coalesce(d.family_name,'')) as name,"
-		        + " concat(coalesce(d.mother_first_name,''), ' ', coalesce(d.mother_last_name,'')) as mother_name,"
-		        + " concat(coalesce(d.guardian_first_name,''), ' ', coalesce(d.guardian_last_name,'')) as father_name,"
-		        + " d.gender, date_format(d.dob, '%d/%m/%Y') as dob, date_format(i.bcg_vx_date, '%d/%m/%Y') as bcg_vx_date, "
-		        + " date_format(i.opv_0_vx_date, '%d/%m/%Y') as opv_0_vx_date, "
-		        + " date_format(i.opv_1_vx_date, '%d/%m/%Y') as opv_1_vx_date, date_format(i.pcv_1_vx_date, '%d/%m/%Y') as pcv_1_vx_date, "
-		        + " date_format(i.penta_1_vx_date, '%d/%m/%Y') as penta_1_vx_date, date_format(i.rota_1_vx_date, '%d/%m/%Y') as rota_1_vx_date, "
-		        + " date_format(i.opv_2_vx_date, '%d/%m/%Y') as opv_2_vx_date, "
-		        + " date_format(i.pcv_2_vx_date, '%d/%m/%Y') as pcv_2_vx_date, date_format(i.penta_2_vx_date, '%d/%m/%Y') as penta_2_vx_date, "
-		        + " date_format(i.rota_2_vx_date, '%d/%m/%Y') as rota_2_vx_date, date_format(i.opv_3_vx_date, '%d/%m/%Y') as opv_3_vx_date, "
-		        + " date_format(i.pcv_3_vx_date, '%d/%m/%Y') as pcv_3_vx_date, "
-		        + " date_format(i.penta_3_vx_date, '%d/%m/%Y') as penta_3_vx_date, date_format(i.ipv_vx_date, '%d/%m/%Y') as ipv_vx_date, "
-		        + " date_format(i.mr_1_vx_date, '%d/%m/%Y') as mr_1_vx_date, date_format(i.mr_2_vx_date, '%d/%m/%Y') as mr_2_vx_date, "
-		        + " date_format(i.mr_at_6_vx_date, '%d/%m/%Y') as mr_at_6_vx_date, "
-		        + " date_format(i.yf_vx_date, '%d/%m/%Y') as yf_vx_date, date_format(i.vit_at_6_vx_date, '%d/%m/%Y') as vit_at_6_vx_date "
-		        + " from openmrs_etl.etl_patient_demographics d left join openmrs_etl.etl_immunisations i "
-		        + " on d.patient_id = i.patient_id "*/
 
 }

@@ -72,20 +72,19 @@ public class QueuedReportFormController {
 	@RequestMapping(method = RequestMethod.POST, value = "module/evrreports/queuedReport.form")
 	public String processForm(HttpServletRequest request,
 							  @ModelAttribute("queuedReports") QueuedReport editedReport,
-							  BindingResult errors,
-							  @RequestParam(value = "repeatIntervalUnits", required = false) String repeatIntervalUnits
+							  BindingResult errors
 	) throws Exception {
 
         HttpSession httpSession = request.getSession();
         QueuedReportService queuedReportService = Context.getService(QueuedReportService.class);
 		// determine the repeat interval by units
-		repeatIntervalUnits = repeatIntervalUnits.toLowerCase().trim();
+		//repeatIntervalUnits = repeatIntervalUnits.toLowerCase().trim();
 
 		// ignore if the repeat interval is empty / zero
 		if (editedReport.getRepeatInterval() == null || editedReport.getRepeatInterval() < 0) {
 			editedReport.setRepeatInterval(0);
 
-		} else if (editedReport.getRepeatInterval() > 0) {
+		} /*else if (editedReport.getRepeatInterval() > 0) {
 
 			if (OpenmrsUtil.nullSafeEquals(repeatIntervalUnits, "minutes")) {
 				editedReport.setRepeatInterval(editedReport.getRepeatInterval() * 60);
@@ -95,7 +94,7 @@ public class QueuedReportFormController {
 				// assume days
 				editedReport.setRepeatInterval(editedReport.getRepeatInterval() * 60 * 60 * 24);
 			}
-		}
+		}*/
 
 		// save it
 
@@ -127,7 +126,7 @@ public class QueuedReportFormController {
 		}
 
         if (OpenmrsUtil.nullSafeEquals("ERROR", status)) {
-            inlineInstruction = "Check the new scheduled date and submit when finished";
+            inlineInstruction = "Review report start and end date";
             queuedReport.setDateScheduled(new Date());/*
             queuedReport.setStatus(QueuedReport.STATUS_NEW);*/
         }
@@ -135,10 +134,10 @@ public class QueuedReportFormController {
 		modelMap.put("queuedReports", queuedReport);
         modelMap.put("inlineInstruction",inlineInstruction);
 
-		Integer interval = queuedReport.getRepeatInterval();
-		Integer repeatInterval;
+		/*Integer interval = queuedReport.getRepeatInterval();
+		Integer repeatInterval;*/
 
-		if (interval < 60) {
+		/*if (interval < 60) {
 			modelMap.put("units", "seconds");
 			repeatInterval = interval;
 		} else if (interval < 3600) {
@@ -152,7 +151,7 @@ public class QueuedReportFormController {
 			repeatInterval = interval / 86400;
 		}
 
-		modelMap.put("repeatInterval", repeatInterval.toString());
+		modelMap.put("repeatInterval", repeatInterval.toString());*/
 
 		return FORM_VIEW;
 	}

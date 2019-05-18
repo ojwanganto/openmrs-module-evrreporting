@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,63 +68,34 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 
 		// find the report provider
 		ReportProvider reportProvider = ReportProviderRegistrar.getInstance().getReportProviderByName(queuedReport.getReportName());
-
-		/*CohortDefinition cohortDefinition = reportProvider.getCohortDefinition();
-		cohortDefinition.addParameter(new Parameter("facility", "Facility", MOHFacility.class));*/
-
 		ReportDefinition reportDefinition = reportProvider.getReportDefinition();
 		reportDefinition.addParameter(new Parameter("facility", "Facility", MOHFacility.class));
 		reportDefinition.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		reportDefinition.addParameter(new Parameter("endDate", "End Date", Date.class));
-		// try rendering the report
-		EvaluationContext evaluationContext = new EvaluationContext();
 
+		// try rendering the report
 		// set up evaluation context values
+		EvaluationContext evaluationContext = new EvaluationContext();
 		evaluationContext.addParameterValue("facility", queuedReport.getFacility());
 		evaluationContext.setEvaluationDate(queuedReport.getEvaluationDate());
-		evaluationContext.addParameterValue("startDate", queuedReport.getEvaluationDate());
+		evaluationContext.addParameterValue("startDate", queuedReport.getDateScheduled());
 		evaluationContext.addParameterValue("endDate", queuedReport.getEvaluationDate());
+		evaluationContext.addContextValue("facility.name", queuedReport.getFacility().getName());
+		evaluationContext.addContextValue("facility.code", queuedReport.getFacility().getCode());
+		evaluationContext.addContextValue("period.year", new SimpleDateFormat("yyyy").format(queuedReport.getEvaluationDate()));
+
 
 		StopWatch timer = new StopWatch();
 		timer.start();
 
-		// get the cohort
-		/*CohortDefinitionService cohortDefinitionService = Context.getService(CohortDefinitionService.class);
-		Cohort cohort = cohortDefinitionService.evaluate(cohortDefinition, evaluationContext);
-		evaluationContext.setBaseCohort(cohort);
-
-		timer.stop();
-		String cohortTime = timer.toString();
-		timer.reset();
-
-		// find the persisted temporary cohort
-		Cohort savedCohort = Context.getCohortService().getCohortByUuid(AmrsReportsConstants.SAVED_COHORT_UUID);
-
-		// initialize it if the temporary cohort does not yet exist
-		if (savedCohort == null) {
-			savedCohort = new Cohort();
-			savedCohort.setName("EVR Reports");
-			savedCohort.setDescription("Temporary cohort for EVR Reports Module; refreshed for each report.");
-			savedCohort.setUuid(AmrsReportsConstants.SAVED_COHORT_UUID);
-		}
-
-		// update and save the cohort
-		savedCohort.setMemberIds(cohort.getMemberIds());
-		Context.getCohortService().saveCohort(savedCohort);
-*/
-		//timer.start();
-
 		// get the time the report was started (not finished)
 		Date startTime = Calendar.getInstance().getTime();
-		String formattedStartTime = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(startTime);
+		String formattedStartTime = new SimpleDateFormat("yyyy-MM-dd").format(queuedReport.getDateScheduled());
 		String formattedEvaluationDate = new SimpleDateFormat("yyyy-MM-dd").format(queuedReport.getEvaluationDate());
 		ReportData reportData = Context.getService(ReportDefinitionService.class)
 				.evaluate(reportDefinition, evaluationContext);
 
 		timer.stop();
-
-		/*log.info("Time for rendering " + cohort.getSize() + "-person cohort: " + cohortTime);
-		log.info("Time for rendering " + cohort.getSize() + "-person report: " + timer.toString());*/
 
 		// find the directory to put the file in
 		AdministrationService as = Context.getAdministrationService();
@@ -138,9 +110,9 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 				+ code
 				+ "_"
 				+ queuedReport.getFacility().getName().replaceAll(" ", "-")
-				+ "_as-of_"
+				+ "_end_date_"
 				+ formattedEvaluationDate
-				+ "_run-on_"
+				+ "_start_date_"
 				+ formattedStartTime
 				+ ".csv";
 
@@ -174,34 +146,10 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		queuedReport.setCsvFilename(csvFilename);
 		queuedReport.setXlsFilename(xlsFilename);
 
-		//Mark original QueuedReport as complete and save status
+		// Mark QueuedReport as complete and save status
 		queuedReport.setStatus(QueuedReport.STATUS_COMPLETE);
 		Context.getService(QueuedReportService.class).saveQueuedReport(queuedReport);
 
-
-		if (queuedReport.getRepeatInterval() != null && queuedReport.getRepeatInterval() > 0) {
-
-			//create a new QueuedReport borrowing some values from the run report
-			QueuedReport newQueuedReport = new QueuedReport();
-			newQueuedReport.setFacility(queuedReport.getFacility());
-			newQueuedReport.setReportName(queuedReport.getReportName());
-
-
-			//compute date for next schedule
-			Calendar newScheduleDate = Calendar.getInstance();
-			newScheduleDate.setTime(queuedReport.getDateScheduled());
-			newScheduleDate.add(Calendar.SECOND, newScheduleDate.get(Calendar.SECOND) + queuedReport.getRepeatInterval());
-			Date nextSchedule = newScheduleDate.getTime();
-
-			//set date for next schedule
-			newQueuedReport.setDateScheduled(nextSchedule);
-			newQueuedReport.setEvaluationDate(nextSchedule);
-
-			newQueuedReport.setStatus(QueuedReport.STATUS_NEW);
-			newQueuedReport.setRepeatInterval(queuedReport.getRepeatInterval());
-
-			Context.getService(QueuedReportService.class).saveQueuedReport(newQueuedReport);
-		}
 	}
 
 	@Override

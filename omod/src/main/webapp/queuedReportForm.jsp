@@ -3,11 +3,7 @@
 
 
 <openmrs:require privilege="Run Reports" otherwise="/login.htm" redirect="/module/evrreports/queuedReport.form"/>
-
-<openmrs:htmlInclude file="/moduleResources/evrreports/js/jquery-ui-timepicker-addon.min.js"/>
 <openmrs:htmlInclude file="/moduleResources/evrreports/js/openmrs-1.9.js"/>
-
-<openmrs:htmlInclude file="/moduleResources/evrreports/css/jquery-ui-timepicker-addon.css"/>
 
 <%@ include file="localHeader.jsp" %>
 
@@ -37,27 +33,22 @@
 <script type="text/javascript">
 
     var reportDate;
-    var scheduleDate;
+    var startDate;
 
     $j(document).ready(function () {
 
-        reportDate = new DatePicker("<openmrs:datePattern/>", "evaluationDate", {
-//            defaultDate: new Date()
-        });
-        reportDate.setDate(new Date());
+        reportDate = new DatePicker("<openmrs:datePattern/>", "evaluationDate", {});
+        //reportDate.setDate(new Date());
 
-        scheduleDate = new DateTimePicker("<openmrs:datePattern/>", "h:mm TT", "dateScheduled", {
-            hourGrid: 6,
-            minuteGrid: 10,
-            stepMinute: 5
-        });
+        startDate = new DatePicker("<openmrs:datePattern/>", "dateScheduled", {});
+        /* scheduleDate.setDate(new Date());*/
 
     });
 
 </script>
 
 
-<b class="boxHeader">Scheduled Report Details</b>
+<b class="boxHeader">Report Details</b>
 
 <div class="box" style=" width:99%; height:auto;  overflow-x: auto;">
 
@@ -68,11 +59,28 @@
 
     <form method="POST">
         <fieldset class="visualPadding">
-            <legend>Dates</legend>
+            <legend>Reporting Dates</legend>
             <table cellspacing="0" cellpadding="2">
                 <tr>
                     <td class="right">
-                        <label for="evaluationDate">Report date (as of):</label>
+                        <label for="dateScheduled">Start Date:</label>
+                    </td>
+                    <td>
+                        <spring:bind path="queuedReports.dateScheduled">
+                            <input type="text" id="dateScheduled" name="${status.expression}" value="${status.value}"/>
+                            <c:if test="${status.error}">
+                                Error codes:
+                                <c:forEach items="${status.errorMessages}" var="error">
+                                    <c:out value="${error}"/>
+                                </c:forEach>
+                            </c:if>
+                        </spring:bind>
+                    </td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td class="right">
+                        <label for="evaluationDate">End Date:</label>
                     </td>
                     <td>
                         <spring:bind path="queuedReports.evaluationDate">
@@ -84,56 +92,6 @@
                                 </c:forEach>
                             </c:if>
                         </spring:bind>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="right">
-                        <label for="dateScheduled">Schedule date (run on):</label>
-                    </td>
-                    <td>
-                        <spring:bind path="queuedReports.dateScheduled">
-                            <input type="text" id="dateScheduled" name="${status.expression}" value="${status.value}"/>
-                            <span class="description">
-                                ${inlineInstruction}
-                        </span>
-                            <c:if test="${status.error}">
-                                Error codes:
-                                <c:forEach items="${status.errorMessages}" var="error">
-                                    <c:out value="${error}"/>
-                                </c:forEach>
-                            </c:if>
-                        </spring:bind>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="right">
-                        <label for="repeatInterval">Repeat Interval:</label>
-                    </td>
-                    <td>
-                        <spring:bind path="queuedReports.repeatInterval">
-                            <input type="text" name="${status.expression}" id="repeatInterval" value="${repeatInterval}"/>
-                            <c:if test="${status.error}">
-                                Error codes:
-                                <c:forEach items="${status.errorMessages}" var="error">
-                                    <c:out value="${error}"/>
-                                </c:forEach>
-                            </c:if>
-                        </spring:bind>
-
-                        <select name="repeatIntervalUnits" id="repeatIntervalUnits">
-
-                            <option value="minutes"
-                                <c:if test="${units == 'minutes'}">selected</c:if> >Minutes</option>
-                            <option value="hours"
-                                <c:if test="${units == 'hours'}">selected</c:if> >Hours</option>
-                            <option value="days"
-                                <c:if test="${units == 'days'}">selected</c:if> >Days</option>
-
-                        </select>
-
-                        <span class="description">
-                            An interval of zero (0) will make this report run only once.
-                        </span>
                     </td>
                 </tr>
             </table>
