@@ -21,7 +21,6 @@
 	
 	<require_modules>
         <require_module version="${reportingVersion}">org.openmrs.module.reporting</require_module>
-        <require_module version="${drughistoryVersion}">org.openmrs.module.drughistory</require_module>
     </require_modules>
 
 	<!-- Extensions -->

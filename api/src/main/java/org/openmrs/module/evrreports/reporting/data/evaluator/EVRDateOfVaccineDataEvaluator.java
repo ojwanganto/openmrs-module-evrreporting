@@ -10,7 +10,7 @@
 package org.openmrs.module.evrreports.reporting.data.evaluator;
 
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.evrreports.reporting.data.DateOfVaccineDataDefinition;
+import org.openmrs.module.evrreports.reporting.data.EVRDateOfVaccineDataDefinition;
 import org.openmrs.module.reporting.data.person.EvaluatedPersonData;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
 import org.openmrs.module.reporting.data.person.evaluator.PersonDataEvaluator;
@@ -25,15 +25,15 @@ import java.util.Map;
 /**
  * Evaluates date of vaccination
  */
-@Handler(supports=DateOfVaccineDataDefinition.class, order=50)
-public class DateOfVaccineDataEvaluator implements PersonDataEvaluator {
+@Handler(supports=EVRDateOfVaccineDataDefinition.class, order=50)
+public class EVRDateOfVaccineDataEvaluator implements PersonDataEvaluator {
 
     @Autowired
     private EvaluationService evaluationService;
 
     public EvaluatedPersonData evaluate(PersonDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedPersonData c = new EvaluatedPersonData(definition, context);
-        DateOfVaccineDataDefinition def = (DateOfVaccineDataDefinition) definition;
+        EVRDateOfVaccineDataDefinition def = (EVRDateOfVaccineDataDefinition) definition;
 
         String tableColumn = def.getVaccineTableColumn();
 

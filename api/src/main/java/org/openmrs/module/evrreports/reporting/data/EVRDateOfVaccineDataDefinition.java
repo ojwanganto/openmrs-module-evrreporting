@@ -21,7 +21,7 @@ import java.util.Date;
  * Visit ID Column
  */
 @Caching(strategy=ConfigurationPropertyCachingStrategy.class)
-public class DateOfVaccineDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
+public class EVRDateOfVaccineDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
 
     public static final long serialVersionUID = 1L;
 
@@ -31,14 +31,14 @@ public class DateOfVaccineDataDefinition extends BaseDataDefinition implements P
     /**
      * Default Constructor
      */
-    public DateOfVaccineDataDefinition() {
+    public EVRDateOfVaccineDataDefinition() {
         super();
     }
 
     /**
      * Constructor to populate name only
      */
-    public DateOfVaccineDataDefinition(String name) {
+    public EVRDateOfVaccineDataDefinition(String name) {
 
         super(name);
     }
@@ -54,7 +54,7 @@ public class DateOfVaccineDataDefinition extends BaseDataDefinition implements P
         this.vaccineTableColumn = vaccineTableColumn;
     }
 
-    public DateOfVaccineDataDefinition(String name, String vaccineTableColumn) {
+    public EVRDateOfVaccineDataDefinition(String name, String vaccineTableColumn) {
         super(name);
         this.vaccineTableColumn = vaccineTableColumn;
     }

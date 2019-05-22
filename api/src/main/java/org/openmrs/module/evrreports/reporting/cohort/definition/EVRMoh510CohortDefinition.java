@@ -25,12 +25,12 @@ import java.util.Date;
  */
 @Caching(strategy = ConfigurationPropertyCachingStrategy.class)
 @Localized("reporting.moh510Cohort")
-public class Moh510CohortDefinition extends BaseCohortDefinition {
+public class EVRMoh510CohortDefinition extends BaseCohortDefinition {
 
     @ConfigurationProperty
     private Date asOfDate;
 
-    public Moh510CohortDefinition() {
+    public EVRMoh510CohortDefinition() {
     }
 
     public Date getAsOfDate() {

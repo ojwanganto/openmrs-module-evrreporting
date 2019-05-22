@@ -41,7 +41,6 @@
         <htmlWidgetsVersion>1.6.0</htmlWidgetsVersion>
         <logicVersion>0.5.2</logicVersion>
         <openCSVVersion>2.3</openCSVVersion>
-        <drughistoryVersion>0.1</drughistoryVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <MODULE_ID>${project.parent.artifactId}</MODULE_ID>
         <MODULE_NAME>${project.name}</MODULE_NAME>
@@ -62,13 +61,6 @@
 				<version>${reportingVersion}</version>
 				<scope>provided</scope>
 			</dependency>
-
-            <dependency>
-                <groupId>org.openmrs.module</groupId>
-                <artifactId>drughistory-api</artifactId>
-                <version>${drughistoryVersion}</version>
-                <scope>provided</scope>
-            </dependency>
 
             <dependency>
 				<groupId>org.openmrs.module</groupId>

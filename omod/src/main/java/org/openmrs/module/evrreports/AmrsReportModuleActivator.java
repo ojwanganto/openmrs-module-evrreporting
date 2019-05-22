@@ -16,9 +16,6 @@ package org.openmrs.module.evrreports;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.Activator;
-import org.openmrs.module.evrreports.reporting.provider.MOH361AReportProvider_0_1;
-import org.openmrs.module.evrreports.reporting.provider.MOH361AReportProvider_0_2;
-import org.openmrs.module.evrreports.reporting.provider.MOH361BReportProvider_0_1;
 import org.openmrs.module.evrreports.reporting.provider.MOH510ReportProvider;
 import org.openmrs.module.evrreports.reporting.provider.MOH710ReportProvider;
 import org.openmrs.module.evrreports.service.ReportProviderRegistrar;
@@ -41,8 +38,7 @@ public class AmrsReportModuleActivator implements Activator {
 		// TODO use some classpath or Spring magic to acquire these automatically
 		ReportProviderRegistrar.getInstance().registerReportProvider(new MOH710ReportProvider());
 		ReportProviderRegistrar.getInstance().registerReportProvider(new MOH510ReportProvider());
-		/*ReportProviderRegistrar.getInstance().registerReportProvider(new MOH361AReportProvider_0_2());
-		ReportProviderRegistrar.getInstance().registerReportProvider(new MOH361BReportProvider_0_1());*/
+
 	}
 
 	/**

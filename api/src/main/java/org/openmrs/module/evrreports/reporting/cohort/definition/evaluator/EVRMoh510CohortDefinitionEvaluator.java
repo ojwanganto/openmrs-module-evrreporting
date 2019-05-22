@@ -13,18 +13,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.evrreports.reporting.cohort.definition.Moh510CohortDefinition;
+import org.openmrs.module.evrreports.reporting.cohort.definition.EVRMoh510CohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.evaluator.CohortDefinitionEvaluator;
-import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
 import org.openmrs.module.reporting.evaluation.querybuilder.SqlQueryBuilder;
 import org.openmrs.module.reporting.evaluation.service.EvaluationService;
-import org.openmrs.module.reporting.query.encounter.EncounterQueryResult;
-import org.openmrs.module.reporting.query.encounter.definition.EncounterQuery;
-import org.openmrs.module.reporting.query.encounter.evaluator.EncounterQueryEvaluator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -34,8 +30,8 @@ import java.util.List;
 /**
  * Evaluator for patients for HTS Register
  */
-@Handler(supports = {Moh510CohortDefinition.class})
-public class Moh510CohortDefinitionEvaluator implements CohortDefinitionEvaluator {
+@Handler(supports = {EVRMoh510CohortDefinition.class})
+public class EVRMoh510CohortDefinitionEvaluator implements CohortDefinitionEvaluator {
 
 	private final Log log = LogFactory.getLog(this.getClass());
 	@Autowired
@@ -44,7 +40,7 @@ public class Moh510CohortDefinitionEvaluator implements CohortDefinitionEvaluato
 	@Override
 	public EvaluatedCohort evaluate(CohortDefinition cohortDefinition, EvaluationContext context) throws EvaluationException {
 
-		Moh510CohortDefinition definition = (Moh510CohortDefinition) cohortDefinition;
+		EVRMoh510CohortDefinition definition = (EVRMoh510CohortDefinition) cohortDefinition;
 
 		if (definition == null)
 			return null;

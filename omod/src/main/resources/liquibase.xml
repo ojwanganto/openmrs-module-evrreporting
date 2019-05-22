@@ -45,12 +45,12 @@
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
                 WHERE schedulable_class = 'org.openmrs.module.evrreports.task.RefreshETLTablesTask'
-                And name = 'Refresh ETL Tables'
+                And name = 'Refresh ETL Tables for EVR'
             </sqlCheck>
         </preConditions>
         <comment>Inserting Refresh ETL Tables Task into 'schedule_task_config' table</comment>
         <insert tableName="scheduler_task_config">
-            <column name="name" value="Refresh ETL Tables" />
+            <column name="name" value="Refresh ETL Tables for EVR" />
             <column name="description" value="Periodically refreshes ETL Tables" />
             <column name="schedulable_class" value="org.openmrs.module.evrreports.task.RefreshETLTablesTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
@@ -61,6 +61,30 @@
             <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
             <column name="created_by" value="1" />
             <column name="uuid" value="ca3c92a7-a312-4a5f-b7f5-fabf4b6122d4" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="${project.parent.artifactId}-20190522-2344" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM scheduler_task_config
+                WHERE schedulable_class = 'org.openmrs.module.evrreports.task.RunQueuedReportsTask'
+                And name = 'Process Queued Reports'
+            </sqlCheck>
+        </preConditions>
+        <comment>Inserting Process Queued Reports Task into 'schedule_task_config' table</comment>
+        <insert tableName="scheduler_task_config">
+            <column name="name" value="Process Queued Reports" />
+            <column name="description" value="Processes queued reports for the EVR" />
+            <column name="schedulable_class" value="org.openmrs.module.evrreports.task.RunQueuedReportsTask" />
+            <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
+            <column name="start_time" valueDate="2017-11-28T23:59:59" />
+            <column name="repeat_interval" value="300" />
+            <column name="start_on_startup" value="1" />
+            <column name="started" value="1" />
+            <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
+            <column name="created_by" value="1" />
+            <column name="uuid" value="535966a8-3be3-498f-9c2d-bfdffde85c6d" />
         </insert>
     </changeSet>
 

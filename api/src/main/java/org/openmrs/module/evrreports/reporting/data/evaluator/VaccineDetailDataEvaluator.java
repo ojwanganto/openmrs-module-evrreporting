@@ -10,7 +10,6 @@
 package org.openmrs.module.evrreports.reporting.data.evaluator;
 
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.evrreports.reporting.data.DateOfVaccineDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.VaccineDetailDataDefinition;
 import org.openmrs.module.reporting.data.person.EvaluatedPersonData;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;

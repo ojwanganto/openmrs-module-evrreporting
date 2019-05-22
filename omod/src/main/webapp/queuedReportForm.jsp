@@ -37,10 +37,10 @@
 
     $j(document).ready(function () {
 
-        reportDate = new DatePicker("<openmrs:datePattern/>", "evaluationDate", {});
+        reportDate = new DatePicker("<openmrs:datePattern/>", "evaluationDate");
         //reportDate.setDate(new Date());
 
-        startDate = new DatePicker("<openmrs:datePattern/>", "dateScheduled", {});
+        startDate = new DatePicker("<openmrs:datePattern/>", "dateScheduled");
         /* scheduleDate.setDate(new Date());*/
 
     });
