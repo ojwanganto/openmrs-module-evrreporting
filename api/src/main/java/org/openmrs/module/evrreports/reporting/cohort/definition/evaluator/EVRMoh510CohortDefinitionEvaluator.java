@@ -52,7 +52,7 @@ public class EVRMoh510CohortDefinitionEvaluator implements CohortDefinitionEvalu
 
 		String qry = "select d.patient_id \n" +
 				"from openmrs_etl.etl_patient_demographics d left join openmrs_etl.etl_immunisations i \n" +
-				"on d.patient_id = i.patient_id where (d.date_created between :startDate and :endDate) and d.health_facility_id in (193)";
+				"on d.patient_id = i.patient_id where (d.date_created between :startDate and :endDate) and d.health_facility_id in (:facilityList)";
 
 		SqlQueryBuilder builder = new SqlQueryBuilder();
 		builder.append(qry);
