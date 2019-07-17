@@ -12,6 +12,7 @@ package org.openmrs.module.evrreports.reporting.cohort.definition.evaluator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
+import org.openmrs.Location;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.evrreports.reporting.cohort.definition.EVRMoh510CohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
@@ -23,9 +24,11 @@ import org.openmrs.module.reporting.evaluation.querybuilder.SqlQueryBuilder;
 import org.openmrs.module.reporting.evaluation.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Evaluator for patients for HTS Register
@@ -49,14 +52,21 @@ public class EVRMoh510CohortDefinitionEvaluator implements CohortDefinitionEvalu
 
 		String qry = "select d.patient_id \n" +
 				"from openmrs_etl.etl_patient_demographics d left join openmrs_etl.etl_immunisations i \n" +
-				"on d.patient_id = i.patient_id where (d.date_created between :startDate and :endDate)";
+				"on d.patient_id = i.patient_id where (d.date_created between :startDate and :endDate) and d.health_facility_id in (193)";
 
 		SqlQueryBuilder builder = new SqlQueryBuilder();
 		builder.append(qry);
 		Date startDate = (Date) context.getParameterValue("startDate");
 		Date endDate = (Date) context.getParameterValue("endDate");
+		Set<Location> facilityList = (Set<Location>) context.getParameterValue("facilityList");
+
+		List<Location> locationList = new ArrayList<Location>();
+		locationList.addAll(facilityList);
+
+		System.out.println("Facility List: " + locationList.get(0).getLocationId());
 		builder.addParameter("endDate", endDate);
 		builder.addParameter("startDate", startDate);
+		builder.addParameter("facilityList", locationList);
 		List<Integer> ptIds = evaluationService.evaluateToList(builder, Integer.class, context);
 
 		newCohort.setMemberIds(new HashSet<Integer>(ptIds));

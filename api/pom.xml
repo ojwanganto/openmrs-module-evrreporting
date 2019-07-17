@@ -29,11 +29,11 @@
 			<artifactId>htmlwidgets</artifactId>
 		</dependency>
 
-		<dependency>
+<!--		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>logic-api</artifactId>
 			<type>jar</type>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>

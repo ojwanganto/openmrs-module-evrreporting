@@ -69,14 +69,16 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		// find the report provider
 		ReportProvider reportProvider = ReportProviderRegistrar.getInstance().getReportProviderByName(queuedReport.getReportName());
 		ReportDefinition reportDefinition = reportProvider.getReportDefinition();
-		reportDefinition.addParameter(new Parameter("facility", "Facility", MOHFacility.class));
+		reportDefinition.addParameter(new Parameter("facilityList", "facilityList", MOHFacility.class));
 		reportDefinition.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		reportDefinition.addParameter(new Parameter("endDate", "End Date", Date.class));
 
 		// try rendering the report
 		// set up evaluation context values
 		EvaluationContext evaluationContext = new EvaluationContext();
-		evaluationContext.addParameterValue("facility", queuedReport.getFacility());
+		evaluationContext.addParameterValue("facilityList", queuedReport.getFacility().getLocations());
+
+		System.out.println("Location list at the service impl: " + queuedReport.getFacility().getLocations());
 		evaluationContext.setEvaluationDate(queuedReport.getEvaluationDate());
 		evaluationContext.addParameterValue("startDate", queuedReport.getDateScheduled());
 		evaluationContext.addParameterValue("endDate", queuedReport.getEvaluationDate());

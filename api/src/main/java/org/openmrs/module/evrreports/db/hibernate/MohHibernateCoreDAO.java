@@ -35,7 +35,6 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.evrreports.HIVCareEnrollment;
 import org.openmrs.module.evrreports.cache.MohCacheUtils;
 import org.openmrs.module.evrreports.db.MohCoreDAO;
-import org.openmrs.module.evrreports.rule.MohEvaluableNameConstants;
 import org.openmrs.module.evrreports.util.MohFetchOrdering;
 import org.openmrs.module.evrreports.util.MohFetchRestriction;
 import org.openmrs.util.OpenmrsUtil;
@@ -297,7 +296,7 @@ public class MohHibernateCoreDAO implements MohCoreDAO {
 	@Override
 	public Cohort getReturnDateCohort(final Location location, final Date startDate, final Date endDate) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class);
-		criteria.add(Restrictions.eq("concept", MohCacheUtils.getConcept(MohEvaluableNameConstants.RETURN_VISIT_DATE)));
+		criteria.add(Restrictions.eq("concept", MohCacheUtils.getConcept(5096)));
 
 		if (location != null) {
 			criteria.add(Restrictions.eq("location", location));

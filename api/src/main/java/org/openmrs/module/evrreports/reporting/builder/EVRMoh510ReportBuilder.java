@@ -13,6 +13,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
+import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.reporting.cohort.definition.EVRMoh510CohortDefinition;
 import org.openmrs.module.evrreports.reporting.data.ClientIdentifierDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.ClientParentGuardianNameDataDefinition;
@@ -61,7 +62,8 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 	protected List<Parameter> getParameters() {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
-				new Parameter("endDate", "End Date", Date.class)
+				new Parameter("endDate", "End Date", Date.class),
+				new Parameter("facilityList", "Facility List", MOHFacility.class)
 		);
 	}
 
@@ -72,7 +74,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 	@Override
 	protected List<Mapped<DataSetDefinition>> buildDataSets(ReportDefinition report) {
 		return Arrays.asList(
-				MOHReportUtil.map(moh510DataSetDefinition(), "startDate=${startDate},endDate=${endDate}")
+				MOHReportUtil.map(moh510DataSetDefinition(), "startDate=${startDate},endDate=${endDate},facilityList=${facilityList}")
 		);
 	}
 
@@ -116,11 +118,13 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 	 */
 	protected DataSetDefinition moh510DataSetDefinition() {
 
-		String paramMapping = "startDate=${startDate},endDate=${endDate}";
+		String paramMapping = "startDate=${startDate},endDate=${endDate},facilityList=${facilityList}";
 
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition("immunizationRegister");
 		dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+		dsd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+
 
 		/*PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, MchMetadata._PatientIdentifierType.CWC_NUMBER);
 		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
@@ -174,6 +178,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
         EVRMoh510CohortDefinition cd = new EVRMoh510CohortDefinition();
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
 
 		dsd.addRowFilter(cd, paramMapping);
 		return dsd;

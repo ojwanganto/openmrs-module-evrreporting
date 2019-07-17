@@ -62,13 +62,13 @@
 				<scope>provided</scope>
 			</dependency>
 
-            <dependency>
+<!--            <dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>logic-api</artifactId>
 				<version>${logicVersion}</version>
 				<type>jar</type>
 				<scope>provided</scope>
-			</dependency>
+			</dependency>-->
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>

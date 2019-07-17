@@ -13,7 +13,7 @@
      for a list of supported elements and attributes
  -->
 
-	<changeSet id="amrsreports-2012-09-03-15:50" author="AOjwang">
+	<!--<changeSet id="amrsreports-2012-09-03-15:50" author="AOjwang">
 		<preConditions onFail="MARK_RAN">
 			<not>
 				<tableExists tableName="amrsreports_userlocation"/>
@@ -286,7 +286,7 @@
                                  baseTableName="amrsreports_user_facility" baseColumnNames="facility_id"
                                  referencedTableName="amrsreports_facility" referencedColumnNames="facility_id"
                 />
-    </changeSet>
+    </changeSet>-->
 
 
 </databaseChangeLog>
