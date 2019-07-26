@@ -60,13 +60,13 @@ public class EVRMoh510CohortDefinitionEvaluator implements CohortDefinitionEvalu
 		Date endDate = (Date) context.getParameterValue("endDate");
 		Set<Location> facilityList = (Set<Location>) context.getParameterValue("facilityList");
 
-		List<Location> locationList = new ArrayList<Location>();
-		locationList.addAll(facilityList);
+		/*List<Location> locationList = new ArrayList<Location>();
+		locationList.addAll(facilityList);*/
 
-		System.out.println("Facility List: " + locationList.get(0).getLocationId());
+		//System.out.println("Facility List: " + locationList.get(0).getLocationId());
 		builder.addParameter("endDate", endDate);
 		builder.addParameter("startDate", startDate);
-		builder.addParameter("facilityList", locationList);
+		builder.addParameter("facilityList", facilityList);
 		List<Integer> ptIds = evaluationService.evaluateToList(builder, Integer.class, context);
 
 		newCohort.setMemberIds(new HashSet<Integer>(ptIds));

@@ -13,6 +13,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
+import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.reporting.ColumnParameters;
 import org.openmrs.module.evrreports.reporting.EmrReportingUtils;
 import org.openmrs.module.evrreports.reporting.library.MOH710.EVRMoh710IndicatorLibrary;
@@ -58,8 +59,8 @@ public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 	protected List<Parameter> getParameters() {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
-				new Parameter("endDate", "End Date", Date.class)
-				//new Parameter("dateBasedReporting", "", String.class)
+				new Parameter("endDate", "End Date", Date.class),
+				new Parameter("facilityList", "Facility List", MOHFacility.class)
 		);
 	}
 
@@ -70,7 +71,7 @@ public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 	@Override
 	protected List<Mapped<DataSetDefinition>> buildDataSets(ReportDefinition report) {
 		return Arrays.asList(
-				MOHReportUtil.map(immunizationsDataSet(), "startDate=${startDate},endDate=${endDate}")
+				MOHReportUtil.map(immunizationsDataSet(), "startDate=${startDate},endDate=${endDate},facilityList=${facilityList}")
 		);
 	}
 
@@ -117,6 +118,7 @@ public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 		dsd.setDescription("MOH 710 Immunizations");
 		dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+		dsd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
 
 
 		EVRCommonDimensionLibrary commDim = new EVRCommonDimensionLibrary();
@@ -130,7 +132,7 @@ public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 		List<ColumnParameters> moh710Disaggregations = Arrays.asList(infantLess_1, infantAtleast_1);
 		List<ColumnParameters> moh710DisaggregationsMR = Arrays.asList(childBtw18mAnd24m, childOver2y);
 
-		String indParams = "startDate=${startDate},endDate=${endDate}";
+		String indParams = "startDate=${startDate},endDate=${endDate},facilityList=${facilityList}";
 
 		EmrReportingUtils.addRow(dsd, "BCG", "Given BCG", MOHReportUtil.map(moh710Indicators.givenBCGVaccine(), indParams), moh710Disaggregations, Arrays.asList("01", "02"));
 		EmrReportingUtils.addRow(dsd,"OPV-0", "Given OPV at birth", MOHReportUtil.map(moh710Indicators.givenOPV(), indParams),moh710Disaggregations, Arrays.asList("01", "02"));
