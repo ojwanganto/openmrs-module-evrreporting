@@ -9,6 +9,9 @@
  */
 package org.openmrs.module.evrreports.reporting.library.MOH710;
 
+import org.openmrs.module.evrreports.reporting.cohort.definition.VaccinatedClientsCohortDefinition;
+import org.openmrs.module.evrreports.util.MOHReportUtil;
+import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.indicator.CohortIndicator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,12 +26,13 @@ public class EVRMoh710IndicatorLibrary {
 	private EVRMoh710CohortLibrary moh710CohortLibrary = new EVRMoh710CohortLibrary();
 
 	String indParams = "startDate=${startDate},endDate=${endDate},facilityList=${facilityList}";
+	//String indParams = "startDate=${startDate},endDate=${endDate}";
 
 
 	/*Given BCG*/
 	public CohortIndicator givenBCGVaccine() {
 
-		return cohortIndicator("Given BCG",map(moh710CohortLibrary.givenBCGVaccineCl(), indParams)
+		return cohortIndicator("Given BCG", map(moh710CohortLibrary.givenBCGVaccineCl(), indParams)
 		);
 	}
 

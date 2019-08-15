@@ -133,6 +133,7 @@ public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 		List<ColumnParameters> moh710DisaggregationsMR = Arrays.asList(childBtw18mAnd24m, childOver2y);
 
 		String indParams = "startDate=${startDate},endDate=${endDate},facilityList=${facilityList}";
+		//String indParams = "startDate=${startDate},endDate=${endDate}";
 
 		EmrReportingUtils.addRow(dsd, "BCG", "Given BCG", MOHReportUtil.map(moh710Indicators.givenBCGVaccine(), indParams), moh710Disaggregations, Arrays.asList("01", "02"));
 		EmrReportingUtils.addRow(dsd,"OPV-0", "Given OPV at birth", MOHReportUtil.map(moh710Indicators.givenOPV(), indParams),moh710Disaggregations, Arrays.asList("01", "02"));
