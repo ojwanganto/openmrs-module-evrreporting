@@ -76,11 +76,10 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		// try rendering the report
 		// set up evaluation context values
 		EvaluationContext evaluationContext = new EvaluationContext();
-		evaluationContext.addParameterValue("facilityList", queuedReport.getFacility().getLocations());
-
 		evaluationContext.setEvaluationDate(queuedReport.getEvaluationDate());
 		evaluationContext.addParameterValue("startDate", queuedReport.getDateScheduled());
 		evaluationContext.addParameterValue("endDate", queuedReport.getEvaluationDate());
+		evaluationContext.addParameterValue("facilityList", queuedReport.getFacility().getLocations());
 		evaluationContext.addContextValue("facility.name", queuedReport.getFacility().getName());
 		evaluationContext.addContextValue("facility.code", queuedReport.getFacility().getCode());
 		evaluationContext.addContextValue("period.year", new SimpleDateFormat("yyyy").format(queuedReport.getEvaluationDate()));

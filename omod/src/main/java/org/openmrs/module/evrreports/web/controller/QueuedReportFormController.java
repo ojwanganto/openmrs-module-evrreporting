@@ -18,17 +18,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +53,7 @@ public class QueuedReportFormController {
 	public String getDatetimeFormat() {
 		SimpleDateFormat sdf = Context.getDateFormat();
 		String format = sdf.toPattern();
-		format += " h:mm a";
+		//format += " h:mm a";
 		return format;
 	}
 
@@ -77,31 +71,12 @@ public class QueuedReportFormController {
 
         HttpSession httpSession = request.getSession();
         QueuedReportService queuedReportService = Context.getService(QueuedReportService.class);
-		// determine the repeat interval by units
-		//repeatIntervalUnits = repeatIntervalUnits.toLowerCase().trim();
 
-		// ignore if the repeat interval is empty / zero
 		if (editedReport.getRepeatInterval() == null || editedReport.getRepeatInterval() < 0) {
 			editedReport.setRepeatInterval(0);
 
-		} /*else if (editedReport.getRepeatInterval() > 0) {
-
-			if (OpenmrsUtil.nullSafeEquals(repeatIntervalUnits, "minutes")) {
-				editedReport.setRepeatInterval(editedReport.getRepeatInterval() * 60);
-			} else if (OpenmrsUtil.nullSafeEquals(repeatIntervalUnits, "hours")) {
-				editedReport.setRepeatInterval(editedReport.getRepeatInterval() * 60 * 60);
-			} else {
-				// assume days
-				editedReport.setRepeatInterval(editedReport.getRepeatInterval() * 60 * 60 * 24);
-			}
-		}*/
-
-		// save it
-
+		}
 		queuedReportService.saveQueuedReport(editedReport);
-
-		// kindly respond
-
 		httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Report queued for processing.");
 
 		return SUCCESS_VIEW;
@@ -116,7 +91,6 @@ public class QueuedReportFormController {
 
 		QueuedReport queuedReport = null;
         String inlineInstruction ="";
-
 
 		if (queuedReportId != null)
 			queuedReport = Context.getService(QueuedReportService.class).getQueuedReport(queuedReportId);
@@ -133,26 +107,6 @@ public class QueuedReportFormController {
 
 		modelMap.put("queuedReports", queuedReport);
         modelMap.put("inlineInstruction",inlineInstruction);
-
-		/*Integer interval = queuedReport.getRepeatInterval();
-		Integer repeatInterval;*/
-
-		/*if (interval < 60) {
-			modelMap.put("units", "seconds");
-			repeatInterval = interval;
-		} else if (interval < 3600) {
-			modelMap.put("units", "minutes");
-			repeatInterval = interval / 60;
-		} else if (interval < 86400) {
-			modelMap.put("units", "hours");
-			repeatInterval = interval / 3600;
-		} else {
-			modelMap.put("units", "days");
-			repeatInterval = interval / 86400;
-		}
-
-		modelMap.put("repeatInterval", repeatInterval.toString());*/
-
 		return FORM_VIEW;
 	}
 
@@ -167,11 +121,8 @@ public class QueuedReportFormController {
 
         QueuedReport queuedReport = null;
 
-
         if (queuedReportId != null)
             queuedReport = Context.getService(QueuedReportService.class).getQueuedReport(queuedReportId);
-
-
 
         try {
             queuedReportService.purgeQueuedReport(queuedReport);

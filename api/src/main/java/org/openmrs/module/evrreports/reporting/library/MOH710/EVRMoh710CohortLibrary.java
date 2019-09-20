@@ -324,7 +324,7 @@ public class EVRMoh710CohortLibrary {
 	}
 
 	/*Fully immunized child*/
-	public CohortDefinition fullyImmunizedCl() {
+	/*public CohortDefinition fullyImmunizedCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = "select i.patient_id from kenyaemr_etl.etl_hei_immunization i inner join openmrs_etl.etl_patient_demographics d on i.patient_id=d.patient_id where date(i.fully_immunized) between date(:startDate) and date(:endDate) and d.health_facility_id in (:facilityList);";
 
@@ -338,7 +338,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Given Vitamin A at 1 years (200,000IU)*/
+	*//*Given Vitamin A at 1 years (200,000IU)*//*
 	public CohortDefinition givenVitAAt12MonthsCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = "select i.patient_id from kenyaemr_etl.etl_hei_immunization i inner join openmrs_etl.etl_patient_demographics d on i.patient_id=d.patient_id where date(i.VitaminA_1_yr) between date(:startDate) and date(:endDate) and d.health_facility_id in (:facilityList);";
@@ -353,7 +353,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Given Vitamin A at 2 years to 5 years (200,000IU)*/
+	*//*Given Vitamin A at 2 years to 5 years (200,000IU)*//*
 	public CohortDefinition givenVitAAt18MonthsCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = "select i.patient_id from kenyaemr_etl.etl_hei_immunization i inner join openmrs_etl.etl_patient_demographics d on i.patient_id=d.patient_id where date(i.VitaminA_1_and_half_yr) between date(:startDate) and date(:endDate) and d.health_facility_id in (:facilityList);";
@@ -368,7 +368,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Given Measles - Rubella 2(at 1 1/2 - 2 years)*/
+	*//*Given Measles - Rubella 2(at 1 1/2 - 2 years)*//*
 	public CohortDefinition givenVitAAt2To5YearsCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = "select i.patient_id from kenyaemr_etl.etl_hei_immunization i inner join openmrs_etl.etl_patient_demographics d on i.patient_id=d.patient_id where date(i.VitaminA_2_to_5_yr) between date(:startDate) and date(:endDate) and d.health_facility_id in (:facilityList);";
@@ -383,7 +383,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Measles - Rubella 2(at 1 1/2 - 2 years)*/
+	*//*Measles - Rubella 2(at 1 1/2 - 2 years)*//*
 	public CohortDefinition givenMeaslesRubella2VaccineAge18To24MonthsCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = "select i.patient_id from kenyaemr_etl.etl_hei_immunization i inner join openmrs_etl.etl_patient_demographics d on i.patient_id=d.patient_id where date(i.Measles_rubella_2) between date(:startDate) and date(:endDate) and d.health_facility_id in (:facilityList);";
@@ -398,7 +398,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Measles-Rubella 2 Above 2 years*/
+	*//*Measles-Rubella 2 Above 2 years*//*
 	public CohortDefinition givenMeaslesRubellaVaccine2AndAgedOver2YearsCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = "select i.patient_id from kenyaemr_etl.etl_hei_immunization i inner join openmrs_etl.etl_patient_demographics d on i.patient_id=d.patient_id where date(i.Measles_rubella_2) between date(:startDate) and date(:endDate) and d.health_facility_id in (:facilityList);";
@@ -413,7 +413,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Tetanus Toxoid for pregnant women first dose*/
+	*//*Tetanus Toxoid for pregnant women first dose*//*
 	public CohortDefinition givenTTXFirstDoseCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = ";";
@@ -428,7 +428,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Tetanus Toxoid for pregnant women second dose*/
+	*//*Tetanus Toxoid for pregnant women second dose*//*
 	public CohortDefinition givenTTXSecondDoseCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = ";";
@@ -443,7 +443,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Tetanus Toxoid plus(Booster) for pregnant women*/
+	*//*Tetanus Toxoid plus(Booster) for pregnant women*//*
 	public CohortDefinition givenTTXPlusCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = ";";
@@ -458,7 +458,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Given Vitamin A supplement 2 -5 years (200,000 IU)*/
+	*//*Given Vitamin A supplement 2 -5 years (200,000 IU)*//*
 	public CohortDefinition givenVitASupplementalCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = ";";
@@ -473,7 +473,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Vitamin A Supplemental Lactating Mothers(200,000 IU)*/
+	*//*Vitamin A Supplemental Lactating Mothers(200,000 IU)*//*
 	public CohortDefinition givenVitASupplementalLacCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = ";";
@@ -488,7 +488,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Issued with LLITN in this Visit (under 1 year)*/
+	*//*Issued with LLITN in this Visit (under 1 year)*//*
 	public CohortDefinition givenLLITNCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = ";";
@@ -503,7 +503,7 @@ public class EVRMoh710CohortLibrary {
 		return cd;
 	}
 
-	/*Squint/White Eye Reflection under 1 year*/
+	*//*Squint/White Eye Reflection under 1 year*//*
 	public CohortDefinition squintWhiteEyeReflectionCl() {
 		SqlCohortDefinition cd = new SqlCohortDefinition();
 		String sqlQuery = ";";
@@ -516,5 +516,5 @@ public class EVRMoh710CohortLibrary {
 		cd.setDescription("Squint/White Eye Reflection under 1 year");
 
 		return cd;
-	}
+	}*/
 }

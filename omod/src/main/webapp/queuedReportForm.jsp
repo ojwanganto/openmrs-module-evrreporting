@@ -3,7 +3,6 @@
 
 
 <openmrs:require privilege="Run Reports" otherwise="/login.htm" redirect="/module/evrreports/queuedReport.form"/>
-<openmrs:htmlInclude file="/moduleResources/evrreports/js/openmrs-1.9.js"/>
 
 <%@ include file="localHeader.jsp" %>
 

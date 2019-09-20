@@ -49,12 +49,12 @@
 
 .evaluationDate {
     display: inline-block;
-    width: 10em;
+    width: 20em;
 }
 
 .scheduledDate {
     display: inline-block;
-    width: 17em;
+    width: 20em;
 }
 
 #wrapper {

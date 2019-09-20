@@ -148,7 +148,7 @@ public class EVRMoh710IndicatorLibrary {
 		);
 	}
 
-	/*Fully immunized child*/
+	/*Fully immunized child*//*
 	public CohortIndicator fullyImmunized() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.fullyImmunizedCl(), indParams)
@@ -156,63 +156,63 @@ public class EVRMoh710IndicatorLibrary {
 	}
 
 
-	/*Given Vitamin A at 1 years (200,000IU)*/
+	*//*Given Vitamin A at 1 years (200,000IU)*//*
 	public CohortIndicator givenVitAAt12Months() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenVitAAt12MonthsCl(), indParams)
 		);
 	}
 
-	/*Given Vitamin A at 1 1/2 years (200,000IU)*/
+	*//*Given Vitamin A at 1 1/2 years (200,000IU)*//*
 	public CohortIndicator givenVitAAt18Months() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenVitAAt18MonthsCl(), indParams)
 		);
 	}
 
-	/*Given Vitamin A at 2 years to 5 years (200,000IU)*/
+	*//*Given Vitamin A at 2 years to 5 years (200,000IU)*//*
 	public CohortIndicator givenVitAAt2To5Years() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenVitAAt2To5YearsCl(), indParams)
 		);
 	}
 
-	/*Vitamin A Supplemental Lactating Mothers(200,000 IU)*/
+	*//*Vitamin A Supplemental Lactating Mothers(200,000 IU)*//*
 	public CohortIndicator givenVitASupplementalLac() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenVitASupplementalLacCl(), indParams)
 		);
 	}
 
-	/*Measles - Rubella 2(at 1 1/2 - 2 years)*/
+	*//*Measles - Rubella 2(at 1 1/2 - 2 years)*//*
 	public CohortIndicator givenMeaslesRubella2VaccineAge18To24Months() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenMeaslesRubella2VaccineAge18To24MonthsCl(), indParams)
 		);
 	}
 
-	/*Measles-Rubella 2 Above 2 years*/
+	*//*Measles-Rubella 2 Above 2 years*//*
 	public CohortIndicator givenMeaslesRubellaVaccine2AndAgedOver2Years() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenMeaslesRubellaVaccine2AndAgedOver2YearsCl(), indParams)
 		);
 	}
 
-	/*Tetanus Toxoid for pregnant women first dose*/
+	*//*Tetanus Toxoid for pregnant women first dose*//*
 	public CohortIndicator givenTTXFirstDose() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenTTXFirstDoseCl(), indParams)
 		);
 	}
 
-	/*Tetanus Toxoid for pregnant women second dose*/
+	*//*Tetanus Toxoid for pregnant women second dose*//*
 	public CohortIndicator givenTTXSecondDose() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenTTXSecondDoseCl(), indParams)
 		);
 	}
 
-	/*Tetanus Toxoid plus(Booster) for pregnant women*/
+	*//*Tetanus Toxoid plus(Booster) for pregnant women*//*
 	public CohortIndicator givenTTXPlus() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenTTXPlusCl(), indParams)
@@ -220,26 +220,26 @@ public class EVRMoh710IndicatorLibrary {
 	}
 //Adverse events following immunization
 
-	/*2 -5 years (200,000 IU)*/
+	*//*2 -5 years (200,000 IU)*//*
 	public CohortIndicator givenVitASupplemental() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenVitASupplementalCl(), indParams)
 		);
 	}
 
-	/*Issued with LLITN in this Visit (under 1 year)*/
+	*//*Issued with LLITN in this Visit (under 1 year)*//*
 	public CohortIndicator givenLLITN() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.givenLLITNCl(), indParams)
 		);
 	}
 
-	/*Squint/White Eye Reflection under 1 year*/
+	*//*Squint/White Eye Reflection under 1 year*//*
 	public CohortIndicator squintWhiteEyeReflection() {
 
 		return cohortIndicator(null,map(moh710CohortLibrary.squintWhiteEyeReflectionCl(), indParams)
 		);
-	}
+	}*/
 }
 
 

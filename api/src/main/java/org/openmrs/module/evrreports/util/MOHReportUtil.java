@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.module.evrreports.AmrsReportsConstants;
+import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.cache.MohCacheUtils;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.dataset.DataSet;
@@ -163,6 +164,8 @@ public class MOHReportUtil {
 		CohortIndicator ind = new CohortIndicator(name);
 		ind.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		ind.addParameter(new Parameter("endDate", "End Date", Date.class));
+		ind.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+
 		ind.setCohortDefinition(cohort);
 		return ind;
 	}
