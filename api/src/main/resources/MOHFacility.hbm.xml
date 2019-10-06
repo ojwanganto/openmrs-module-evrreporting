@@ -11,6 +11,9 @@
         <property name="name" type="java.lang.String" not-null="true"/>
         <property name="description" type="java.lang.String" />
         <property name="code" type="java.lang.String" not-null="true"/>
+        <property name="county" type="java.lang.String" column="county" not-null="true"/>
+        <property name="subCounty" type="java.lang.String" column="sub_county" not-null="true"/>
+        <property name="ward" type="java.lang.String" column="ward" not-null="true"/>
 
         <set name="locations" table="amrsreports_facility_location" cascade="delete">
             <key column="facility_id"/>

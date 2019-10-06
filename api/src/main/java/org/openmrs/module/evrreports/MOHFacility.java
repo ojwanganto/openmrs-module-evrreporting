@@ -14,6 +14,9 @@ public class MOHFacility extends BaseOpenmrsMetadata {
 	private Integer facilityId;
 	private String code;
 	private Set<Location> locations;
+	private String county;
+	private String subCounty;
+	private String ward;
 
 	@Override
 	public Integer getId() {
@@ -55,8 +58,32 @@ public class MOHFacility extends BaseOpenmrsMetadata {
 		this.getLocations().add(location);
 	}
 
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public String getSubCounty() {
+		return subCounty;
+	}
+
+	public void setSubCounty(String subCounty) {
+		this.subCounty = subCounty;
+	}
+
+	public String getWard() {
+		return ward;
+	}
+
+	public void setWard(String ward) {
+		this.ward = ward;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("%s - %s", this.getCode(), this.getName());
+		return String.format("%s - %s in %s County", this.getCode(), this.getName(), this.getCounty());
 	}
 }

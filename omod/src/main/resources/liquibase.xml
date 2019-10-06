@@ -362,5 +362,91 @@
         </insert>
     </changeSet>
 
+    <changeSet id="amrsreports-2019-10-05:07:46" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="amrsreports_queued_report" columnName="county"/>
+            </not>
+        </preConditions>
+        <comment>
+            Adding facility county to the amrsreports_queued_report table
+        </comment>
+        <addColumn tableName="amrsreports_queued_report">
+            <column name="county" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="amrsreports-2019-10-05:07:47" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="amrsreports_queued_report" columnName="sub_county"/>
+            </not>
+        </preConditions>
+        <comment>
+            Adding facility sub county to the amrsreports_queued_report table
+        </comment>
+        <addColumn tableName="amrsreports_queued_report">
+            <column name="sub_county" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="amrsreports-2019-10-05:07:49" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="amrsreports_queued_report" columnName="ward"/>
+            </not>
+        </preConditions>
+        <comment>
+            Adding facility ward to the amrsreports_queued_report table
+        </comment>
+        <addColumn tableName="amrsreports_queued_report">
+            <column name="ward" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
+    <!-- adding location attributes to moh facility-->
+
+    <changeSet id="amrsreports-2019-10-05:07:50" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="amrsreports_facility" columnName="county"/>
+            </not>
+        </preConditions>
+        <comment>
+            Adding facility county to the amrsreports_facility table
+        </comment>
+        <addColumn tableName="amrsreports_facility">
+            <column name="county" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="amrsreports-2019-10-05:07:51" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="amrsreports_facility" columnName="sub_county"/>
+            </not>
+        </preConditions>
+        <comment>
+            Adding facility sub county to the amrsreports_facility table
+        </comment>
+        <addColumn tableName="amrsreports_facility">
+            <column name="sub_county" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="amrsreports-2019-10-05:07:52" author="aojwang">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="amrsreports_facility" columnName="ward"/>
+            </not>
+        </preConditions>
+        <comment>
+            Adding facility ward to the amrsreports_facility table
+        </comment>
+        <addColumn tableName="amrsreports_facility">
+            <column name="ward" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
 
