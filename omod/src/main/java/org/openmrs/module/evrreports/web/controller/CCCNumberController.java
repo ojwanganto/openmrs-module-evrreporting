@@ -2,6 +2,7 @@ package org.openmrs.module.evrreports.web.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
@@ -45,10 +46,10 @@ public class CCCNumberController {
 	}
 
 	@ModelAttribute("facilities")
-	public List<MOHFacility> getAllFacilities() {
+	public List<Location> getAllFacilities() {
 
         User currentUser = Context.getAuthenticatedUser();
-        List<MOHFacility> relevantFacilities = Context.getService(UserFacilityService.class).getAllowedFacilitiesForUser(currentUser);
+        List<Location> relevantFacilities = Context.getService(UserFacilityService.class).getAllowedFacilitiesForUser(currentUser);
 
 		return relevantFacilities;
 	}

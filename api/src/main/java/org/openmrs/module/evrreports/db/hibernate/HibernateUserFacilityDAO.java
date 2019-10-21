@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Location;
 import org.openmrs.User;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.UserFacility;
@@ -46,7 +47,7 @@ public class HibernateUserFacilityDAO implements UserFacilityDAO {
 	}
 
 	@Override
-	public List<MOHFacility> getAllowedFacilitiesForUser(User user) {
+	public List<Location> getAllowedFacilitiesForUser(User user) {
 		Criteria c = sessionFactory.getCurrentSession().createCriteria(UserFacility.class)
 				.add(Restrictions.eq("user", user))
 				.setProjection(Projections.property("facility"));
@@ -55,7 +56,7 @@ public class HibernateUserFacilityDAO implements UserFacilityDAO {
 	}
 
 	@Override
-	public UserFacility getUserFacilityFor(User user, MOHFacility facility) {
+	public UserFacility getUserFacilityFor(User user, Location facility) {
 		Criteria c = sessionFactory.getCurrentSession().createCriteria(UserFacility.class)
 				.add(Restrictions.eq("user", user))
 				.add(Restrictions.eq("facility", facility));

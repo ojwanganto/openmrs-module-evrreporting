@@ -9,13 +9,24 @@
 		<discriminator column="queued_report_id" insert="false"/>
 
         <property name="reportName" type="java.lang.String" column="report_name" not-null="true"/>
-        <many-to-one class="MOHFacility" name="facility" column="facility_id" not-null="true"/>
         <property name="dateScheduled" type="java.util.Date" column="date_scheduled" not-null="true" length="19" />
         <property name="evaluationDate" type="java.util.Date" column="evaluation_date" not-null="true" length="19" />
         <property name="status" type="java.lang.String" column="status" not-null="true"/>
         <property name="repeatInterval" type="int" column="repeat_interval" />
         <property name="csvFilename" type="java.lang.String" column="csv_file_location"/>
         <property name="xlsFilename" type="java.lang.String" column="xls_file_location"/>
+        <many-to-one name="county" class="org.openmrs.Location" not-null="false">
+            <column name="county_id" />
+        </many-to-one>
+        <many-to-one name="subCounty" class="org.openmrs.Location" not-null="false">
+            <column name="sub_county_id" />
+        </many-to-one>
+        <many-to-one name="ward" class="org.openmrs.Location" not-null="false">
+            <column name="ward_id" />
+        </many-to-one>
+        <many-to-one name="facility" class="org.openmrs.Location" not-null="false">
+            <column name="facility_id" />
+        </many-to-one>
 
         <property length="38" name="uuid" type="java.lang.String" unique="true"/>
 	</class>

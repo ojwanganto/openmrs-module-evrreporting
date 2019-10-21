@@ -1,6 +1,7 @@
 package org.openmrs.module.evrreports;
 
 import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.Location;
 
 import java.util.Date;
 
@@ -11,13 +12,16 @@ public class QueuedReport extends BaseOpenmrsObject {
 
 	private Integer queuedReportId;
 	private String reportName;
-	private MOHFacility facility;
+	private Location facility;
 	private Date evaluationDate = new Date();
 	private Date dateScheduled = new Date();
 	private String status = STATUS_NEW;
     private Integer repeatInterval = 0;
 	private String csvFilename;
 	private String xlsFilename;
+	private Location county;
+	private Location subCounty;
+	private Location ward;
 
 	public static final String STATUS_NEW = "NEW";
 	public static final String STATUS_ERROR = "ERROR";
@@ -38,14 +42,6 @@ public class QueuedReport extends BaseOpenmrsObject {
 
 	public void setReportName(String reportName) {
 		this.reportName = reportName;
-	}
-
-	public MOHFacility getFacility() {
-		return facility;
-	}
-
-	public void setFacility(MOHFacility facility) {
-		this.facility = facility;
 	}
 
 	public Date getEvaluationDate() {
@@ -105,4 +101,36 @@ public class QueuedReport extends BaseOpenmrsObject {
     public void setRepeatInterval(Integer repeatInterval) {
         this.repeatInterval = repeatInterval;
     }
+
+	public Location getFacility() {
+		return facility;
+	}
+
+	public void setFacility(Location facility) {
+		this.facility = facility;
+	}
+
+	public Location getCounty() {
+		return county;
+	}
+
+	public void setCounty(Location county) {
+		this.county = county;
+	}
+
+	public Location getSubCounty() {
+		return subCounty;
+	}
+
+	public void setSubCounty(Location subCounty) {
+		this.subCounty = subCounty;
+	}
+
+	public Location getWard() {
+		return ward;
+	}
+
+	public void setWard(Location ward) {
+		this.ward = ward;
+	}
 }

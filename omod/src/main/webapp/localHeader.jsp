@@ -27,11 +27,6 @@
         </li>
     </openmrs:hasPrivilege>
     <openmrs:hasPrivilege privilege="View Locations">
-        <li <c:if test='<%= request.getRequestURI().contains("facilityList") %>'>class="active"</c:if>>
-            <a href="${pageContext.request.contextPath}/module/evrreports/facility.list">
-                View MOH Facilities
-            </a>
-        </li>
         <openmrs:hasPrivilege privilege="View Users">
             <li <c:if test='<%= request.getRequestURI().contains("facilityPrivileges") %>'>class="active"</c:if>>
                 <a href="${pageContext.request.contextPath}/module/evrreports/facilityPrivileges.form">

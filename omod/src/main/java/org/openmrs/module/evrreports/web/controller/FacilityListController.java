@@ -22,9 +22,9 @@ import java.util.Set;
 public class FacilityListController {
 
 	@ModelAttribute("facilities")
-	public List<MOHFacility> getAllFacilities() {
+	public List<Location> getAllFacilities() {
         User currentUser = Context.getAuthenticatedUser();
-        List<MOHFacility> relevantFacilities = Context.getService(UserFacilityService.class).getAllowedFacilitiesForUser(currentUser);
+        List<Location> relevantFacilities = Context.getService(UserFacilityService.class).getAllowedFacilitiesForUser(currentUser);
 
         return relevantFacilities;
 	}

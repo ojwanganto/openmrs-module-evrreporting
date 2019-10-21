@@ -2,6 +2,8 @@ package org.openmrs.module.evrreports.web.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Location;
+import org.openmrs.LocationTag;
 import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
@@ -31,6 +33,8 @@ public class FacilityPrivilegesController {
 	private Log log = LogFactory.getLog(this.getClass());
 
 	private static final String VIEW = "module/evrreports/facilityPrivileges";
+	public static final String HEALTH_FACILITY = "b0e8aa74-0991-4751-8e5d-eb0d9b6b0306";
+
 
 	@ModelAttribute("userFacilities")
 	public List<UserFacility> getAllUserFacilities() {
@@ -38,10 +42,9 @@ public class FacilityPrivilegesController {
 	}
 
 	@ModelAttribute("facilities")
-	public List<MOHFacility> getAllFacilities() {
-		return Context.getService(MOHFacilityService.class).getAllFacilities();
-	}
-
+	public List<Location> getAllFacilities() {
+		LocationTag countyTag = Context.getLocationService().getLocationTagByUuid(HEALTH_FACILITY);
+		return Context.getLocationService().getLocationsByTag(countyTag);	}
 	@ModelAttribute("superusers")
 	public List<User> getSuperUsers() {
 		Role su = Context.getUserService().getRole(RoleConstants.SUPERUSER);
@@ -100,7 +103,7 @@ public class FacilityPrivilegesController {
 			return VIEW;
 		}
 
-		MOHFacility facility = Context.getService(MOHFacilityService.class).getFacility(facilityId);
+		Location facility = Context.getLocationService().getLocation(facilityId);
 
 		if (facility == null) {
 			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Invalid facility id: " + facilityId + ".");

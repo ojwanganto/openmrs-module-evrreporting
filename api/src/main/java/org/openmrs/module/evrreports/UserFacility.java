@@ -12,6 +12,7 @@
 package org.openmrs.module.evrreports;
 
 import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.Location;
 import org.openmrs.User;
 
 /**
@@ -21,7 +22,7 @@ public class UserFacility extends BaseOpenmrsObject implements java.io.Serializa
 
 	private Integer userFacilityId;
 	private User user;
-	private MOHFacility facility;
+	private Location facility;
 
 	public Integer getId() {
 		return userFacilityId;
@@ -47,11 +48,11 @@ public class UserFacility extends BaseOpenmrsObject implements java.io.Serializa
 		this.user = user;
 	}
 
-	public MOHFacility getFacility() {
+	public Location getFacility() {
 		return facility;
 	}
 
-	public void setFacility(MOHFacility facility) {
+	public void setFacility(Location facility) {
 		this.facility = facility;
 	}
 }

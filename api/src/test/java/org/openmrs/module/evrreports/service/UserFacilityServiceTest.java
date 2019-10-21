@@ -15,6 +15,7 @@
 package org.openmrs.module.evrreports.service;
 
 import org.junit.Test;
+import org.openmrs.Location;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.service.impl.UserFacilityServiceImpl;
 
@@ -31,7 +32,7 @@ public class UserFacilityServiceTest {
 	@Test
 	public void getAllowedFacilitiesForUser_shouldReturnAnEmptyListIfTheUserIsNull() throws Exception {
 		UserFacilityService service = new UserFacilityServiceImpl();
-		List<MOHFacility> actual = service.getAllowedFacilitiesForUser(null);
+		List<Location> actual = service.getAllowedFacilitiesForUser(null);
 
 		assertNotNull(actual);
 		assertTrue(actual.isEmpty());

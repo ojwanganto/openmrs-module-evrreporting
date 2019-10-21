@@ -1,5 +1,6 @@
 package org.openmrs.module.evrreports.db;
 
+import org.openmrs.Location;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.QueuedReport;
 
@@ -23,6 +24,6 @@ public interface QueuedReportDAO {
 
 	public QueuedReport getQueuedReport(Integer reportId);
 
-	public List<QueuedReport> getQueuedReportsByFacilities(List<MOHFacility> allowedFacilities, String status);
+	public List<QueuedReport> getQueuedReportsByFacilities(List<Location> allowedFacilities, String status);
 
 }

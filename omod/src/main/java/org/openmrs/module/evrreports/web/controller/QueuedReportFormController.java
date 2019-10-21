@@ -2,14 +2,14 @@ package org.openmrs.module.evrreports.web.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Location;
+import org.openmrs.LocationTag;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.QueuedReport;
 import org.openmrs.module.evrreports.reporting.provider.ReportProvider;
 import org.openmrs.module.evrreports.service.QueuedReportService;
 import org.openmrs.module.evrreports.service.ReportProviderRegistrar;
-import org.openmrs.module.evrreports.service.UserFacilityService;
 import org.openmrs.util.OpenmrsUtil;
 import org.openmrs.web.WebConstants;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,7 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,10 +44,36 @@ public class QueuedReportFormController {
 	private static final String FORM_VIEW = "module/evrreports/queuedReportForm";
 	private static final String SUCCESS_VIEW = "redirect:queuedReport.list";
 
-	@ModelAttribute("facilities")
-	public List<MOHFacility> getFacilities() {
-		return Context.getService(UserFacilityService.class).getAllowedFacilitiesForUser(Context.getAuthenticatedUser());
+	public static final String COUNTY = "840dc839-f23e-442c-9776-537ca65890ab";
+
+	public static final String SUB_COUNTY = "c541ecd9-8446-4661-b1a3-2502a8b881cd";
+
+	public static final String WARD = "db487fb4-986c-4549-960d-2ad24dbda493";
+	public static final String HEALTH_FACILITY = "b0e8aa74-0991-4751-8e5d-eb0d9b6b0306";
+
+
+	@ModelAttribute("counties")
+	public List<Location> getCounties() {
+		LocationTag countyTag = Context.getLocationService().getLocationTagByUuid(COUNTY);
+		return Context.getLocationService().getLocationsByTag(countyTag);
 	}
+
+	@ModelAttribute("subcounties")
+	public List<Location> getSubCounties() {
+		LocationTag subCountyTag = Context.getLocationService().getLocationTagByUuid(SUB_COUNTY);
+		return Context.getLocationService().getLocationsByTag(subCountyTag);
+	}
+
+	@ModelAttribute("wards")
+	public List<Location> getWards() {
+		LocationTag wardTag = Context.getLocationService().getLocationTagByUuid(WARD);
+		return Context.getLocationService().getLocationsByTag(wardTag);
+	}
+
+	@ModelAttribute("facilities")
+	public List<Location> getFacilities() {
+		LocationTag facilityTag = Context.getLocationService().getLocationTagByUuid(HEALTH_FACILITY);
+		return Context.getLocationService().getLocationsByTag(facilityTag);	}
 
 	@ModelAttribute("reportProviders")
 	public List<ReportProvider> getReportProviders() {
@@ -76,6 +107,10 @@ public class QueuedReportFormController {
 			editedReport.setRepeatInterval(0);
 
 		}
+		System.out.println("County: " + editedReport.getCounty());
+		System.out.println("Sub County: " + editedReport.getSubCounty());
+		System.out.println("Ward: " + editedReport.getWard());
+		System.out.println("Facility: " + editedReport.getFacility());
 		queuedReportService.saveQueuedReport(editedReport);
 		httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Report queued for processing.");
 

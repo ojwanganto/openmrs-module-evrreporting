@@ -1,5 +1,6 @@
 package org.openmrs.module.evrreports.service;
 
+import org.openmrs.Location;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.QueuedReport;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
@@ -35,6 +36,6 @@ public interface QueuedReportService {
 	public QueuedReport getQueuedReport(Integer reportId);
 
 	@Transactional(readOnly = true)
-	public List<QueuedReport> getQueuedReportsByFacilities(List<MOHFacility> facilities, String status);
+	public List<QueuedReport> getQueuedReportsByFacilities(List<Location> facilities, String status);
 
 }

@@ -5,6 +5,7 @@ import org.apache.commons.lang.time.StopWatch;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
+import org.openmrs.Location;
 import org.openmrs.api.APIException;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
@@ -79,9 +80,9 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		evaluationContext.setEvaluationDate(queuedReport.getEvaluationDate());
 		evaluationContext.addParameterValue("startDate", queuedReport.getDateScheduled());
 		evaluationContext.addParameterValue("endDate", queuedReport.getEvaluationDate());
-		evaluationContext.addParameterValue("facilityList", queuedReport.getFacility().getLocations());
+		evaluationContext.addParameterValue("facilityList", queuedReport.getFacility());
 		evaluationContext.addContextValue("facility.name", queuedReport.getFacility().getName());
-		evaluationContext.addContextValue("facility.code", queuedReport.getFacility().getCode());
+		//evaluationContext.addContextValue("facility.code", queuedReport.getFacility().getCode());
 		evaluationContext.addContextValue("period.year", new SimpleDateFormat("yyyy").format(queuedReport.getEvaluationDate()));
 
 
@@ -102,7 +103,7 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		String folderName = as.getGlobalProperty("evrreports.file_dir");
 
 		// create a new file
-		String code = queuedReport.getFacility().getCode();
+		String code = queuedReport.getFacility().getName();
 
 		String csvFilename = ""
 				+ queuedReport.getReportName().replaceAll(" ", "-")
@@ -160,6 +161,7 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		if (queuedReport.getStatus() == null || queuedReport.getStatus().equals("ERROR"))
 			queuedReport.setStatus(QueuedReport.STATUS_NEW);
 
+
 		return dao.saveQueuedReport(queuedReport);
 	}
 
@@ -185,7 +187,7 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 	}
 
 	@Override
-	public List<QueuedReport> getQueuedReportsByFacilities(List<MOHFacility> facilities, String status) {
+	public List<QueuedReport> getQueuedReportsByFacilities(List<Location> facilities, String status) {
 		return dao.getQueuedReportsByFacilities(facilities, status);
 	}
 

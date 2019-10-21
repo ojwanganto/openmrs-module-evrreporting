@@ -1,5 +1,6 @@
 package org.openmrs.module.evrreports.service;
 
+import org.openmrs.Location;
 import org.openmrs.User;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.UserFacility;
@@ -42,11 +43,11 @@ public interface UserFacilityService {
 	 * @should return an empty list if the user is null
 	 */
 	@Transactional(readOnly = true)
-	public List<MOHFacility> getAllowedFacilitiesForUser(User user);
+	public List<Location> getAllowedFacilitiesForUser(User user);
 
 	/**
 	 * Returns whether a User has access to the given Facility
 	 */
 	@Transactional(readOnly = true)
-	public Boolean hasFacilityPrivilege(User user, MOHFacility facility);
+	public Boolean hasFacilityPrivilege(User user, Location facility);
 }

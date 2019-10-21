@@ -31,10 +31,8 @@
 	
 	<!-- Maps hibernate files, if present -->
 	<mappingFiles>
-        MOHFacility.hbm.xml
         QueuedReport.hbm.xml
 		UserFacility.hbm.xml
-        HIVCareEnrollment.hbm.xml
 	</mappingFiles>
 	
 	<!-- Required Privileges -->

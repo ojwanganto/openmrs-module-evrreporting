@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Location;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.QueuedReport;
 import org.openmrs.module.evrreports.db.QueuedReportDAO;
@@ -66,7 +67,7 @@ public class HibernateQueuedReportDAO implements QueuedReportDAO {
 	}
 
 	@Override
-	public List<QueuedReport> getQueuedReportsByFacilities(List<MOHFacility> facilities, String status) {
+	public List<QueuedReport> getQueuedReportsByFacilities(List<Location> facilities, String status) {
 		return sessionFactory.getCurrentSession().createCriteria(QueuedReport.class)
 				.add(Restrictions.eq("status", status))
 				.add(Restrictions.in("facility", facilities))

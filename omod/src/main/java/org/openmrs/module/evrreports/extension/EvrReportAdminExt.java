@@ -43,8 +43,6 @@ public class EvrReportAdminExt extends AdministrationSectionExt {
 		map.put("module/evrreports/queuedReport.list", "Manage EVR Reports");
 
 		if (Context.hasPrivilege(PrivilegeConstants.VIEW_LOCATIONS)) {
-			map.put("module/evrreports/facility.list", "Manage MOH Facilities");
-
 			if (Context.hasPrivilege(PrivilegeConstants.VIEW_USERS)) {
 				map.put("module/evrreports/facilityPrivileges.form", "Manage User/Facility Privileges");
 			}

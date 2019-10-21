@@ -163,8 +163,19 @@
             <column name="report_name" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
+            <!--adding county, sub county, and ward options-->
+            <column name="county_id" type="int">
+                <constraints nullable="true" />
+            </column>
+            <column name="sub_county_id" type="int">
+                <constraints nullable="true" />
+            </column>
+            <column name="ward_id" type="int">
+                <constraints nullable="true" />
+            </column>
+            <!-- end -->
             <column name="facility_id" type="int">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="evaluation_date" type="datetime">
@@ -189,9 +200,21 @@
             <column name="date_scheduled" />
         </createIndex>
 
+        <addForeignKeyConstraint constraintName="amrsreports_queued_report_county"
+                                 baseTableName="amrsreports_queued_report" baseColumnNames="county_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"
+        />
+        <addForeignKeyConstraint constraintName="amrsreports_queued_report_sub_county"
+                                 baseTableName="amrsreports_queued_report" baseColumnNames="sub_county_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"
+        />
+        <addForeignKeyConstraint constraintName="amrsreports_queued_report_ward"
+                                 baseTableName="amrsreports_queued_report" baseColumnNames="ward_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"
+        />
         <addForeignKeyConstraint constraintName="amrsreports_queued_report_facility"
                                  baseTableName="amrsreports_queued_report" baseColumnNames="facility_id"
-                                 referencedTableName="amrsreports_facility" referencedColumnNames="facility_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"
         />
 
     </changeSet>
@@ -274,7 +297,7 @@
         />
         <addForeignKeyConstraint constraintName="amrsreports_user_facility_facility"
                                  baseTableName="amrsreports_user_facility" baseColumnNames="facility_id"
-                                 referencedTableName="amrsreports_facility" referencedColumnNames="facility_id"
+                                 referencedTableName="location" referencedColumnNames="location_id"
         />
     </changeSet>
 
@@ -360,92 +383,6 @@
             <column name="created_by" value="1" />
             <column name="uuid" value="caf2c176-9700-11e9-bc42-526af7764f64" />
         </insert>
-    </changeSet>
-
-    <changeSet id="amrsreports-2019-10-05:07:46" author="aojwang">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="amrsreports_queued_report" columnName="county"/>
-            </not>
-        </preConditions>
-        <comment>
-            Adding facility county to the amrsreports_queued_report table
-        </comment>
-        <addColumn tableName="amrsreports_queued_report">
-            <column name="county" type="varchar(50)"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="amrsreports-2019-10-05:07:47" author="aojwang">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="amrsreports_queued_report" columnName="sub_county"/>
-            </not>
-        </preConditions>
-        <comment>
-            Adding facility sub county to the amrsreports_queued_report table
-        </comment>
-        <addColumn tableName="amrsreports_queued_report">
-            <column name="sub_county" type="varchar(50)"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="amrsreports-2019-10-05:07:49" author="aojwang">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="amrsreports_queued_report" columnName="ward"/>
-            </not>
-        </preConditions>
-        <comment>
-            Adding facility ward to the amrsreports_queued_report table
-        </comment>
-        <addColumn tableName="amrsreports_queued_report">
-            <column name="ward" type="varchar(50)"/>
-        </addColumn>
-    </changeSet>
-
-    <!-- adding location attributes to moh facility-->
-
-    <changeSet id="amrsreports-2019-10-05:07:50" author="aojwang">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="amrsreports_facility" columnName="county"/>
-            </not>
-        </preConditions>
-        <comment>
-            Adding facility county to the amrsreports_facility table
-        </comment>
-        <addColumn tableName="amrsreports_facility">
-            <column name="county" type="varchar(50)"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="amrsreports-2019-10-05:07:51" author="aojwang">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="amrsreports_facility" columnName="sub_county"/>
-            </not>
-        </preConditions>
-        <comment>
-            Adding facility sub county to the amrsreports_facility table
-        </comment>
-        <addColumn tableName="amrsreports_facility">
-            <column name="sub_county" type="varchar(50)"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="amrsreports-2019-10-05:07:52" author="aojwang">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="amrsreports_facility" columnName="ward"/>
-            </not>
-        </preConditions>
-        <comment>
-            Adding facility ward to the amrsreports_facility table
-        </comment>
-        <addColumn tableName="amrsreports_facility">
-            <column name="ward" type="varchar(50)"/>
-        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

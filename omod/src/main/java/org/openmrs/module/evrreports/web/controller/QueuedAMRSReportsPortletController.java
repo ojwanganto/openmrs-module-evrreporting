@@ -19,6 +19,7 @@
 
 package org.openmrs.module.evrreports.web.controller;
 
+import org.openmrs.Location;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.evrreports.MOHFacility;
@@ -49,14 +50,14 @@ public class QueuedAMRSReportsPortletController extends PortletController {
 
 		String status = (String) model.get("status");
 
-		Map<MOHFacility, List<QueuedReport>> queuedReportsMap = new LinkedHashMap<MOHFacility, List<QueuedReport>>();
+		Map<Location, List<QueuedReport>> queuedReportsMap = new LinkedHashMap<Location, List<QueuedReport>>();
 		UserFacilityService userFacilityService = Context.getService(UserFacilityService.class);
 
 		if (Context.isAuthenticated() && status != null) {
 
 			User currentUser = Context.getAuthenticatedUser();
 
-			List<MOHFacility> relevantFacilities = userFacilityService.getAllowedFacilitiesForUser(currentUser);
+			List<Location> relevantFacilities = userFacilityService.getAllowedFacilitiesForUser(currentUser);
 
             List<QueuedReport> reports = null;
 			if(relevantFacilities!=null && !relevantFacilities.isEmpty()) {
@@ -68,7 +69,18 @@ public class QueuedAMRSReportsPortletController extends PortletController {
 
 			for (QueuedReport thisReport : reports) {
 
-				MOHFacility thisMohFacility = thisReport.getFacility();
+				Location thisMohFacility = null;
+
+				if (thisReport.getFacility() != null) {
+					thisMohFacility = thisReport.getFacility();
+				} else if (thisReport.getWard() != null) {
+					thisMohFacility = thisReport.getWard();
+				} else if (thisReport.getSubCounty() != null) {
+					thisMohFacility = thisReport.getSubCounty();
+				} else {
+					thisMohFacility = thisReport.getCounty();
+				}
+
 
 				if (!queuedReportsMap.containsKey(thisMohFacility))
 					queuedReportsMap.put(thisMohFacility, new ArrayList<QueuedReport>());

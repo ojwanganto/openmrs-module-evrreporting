@@ -1,5 +1,6 @@
 package org.openmrs.module.evrreports.db;
 
+import org.openmrs.Location;
 import org.openmrs.User;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.UserFacility;
@@ -19,7 +20,7 @@ public interface UserFacilityDAO {
 
 	public void purgeUserFacility(UserFacility userFacility);
 
-	public List<MOHFacility> getAllowedFacilitiesForUser(User user);
+	public List<Location> getAllowedFacilitiesForUser(User user);
 
-	public UserFacility getUserFacilityFor(User user, MOHFacility facility);
+	public UserFacility getUserFacilityFor(User user, Location facility);
 }

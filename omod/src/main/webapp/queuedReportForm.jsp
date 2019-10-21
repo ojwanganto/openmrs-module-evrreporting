@@ -97,13 +97,64 @@
         </fieldset>
 
         <fieldset class="visualPadding">
-            <legend>Location</legend>
-            <spring:bind path="queuedReports.facility.facilityId">
-                <select name="${status.expression}" id="facility" size="10">
+            <legend>County</legend>
+            <spring:bind path="queuedReports.county">
+                <select name="${status.expression}" id="county">
+                    <option></option>
+                    <c:forEach var="county" items="${counties}">
+                        <option <c:if test="${status.value==county.locationId}">selected</c:if> value="${county.locationId}">${county.name} </option>
+                    </c:forEach>
+                </select>
+                <c:if test="${status.error}">
+                    Error codes:
+                    <c:forEach items="${status.errorMessages}" var="error">
+                        <c:out value="${error}"/>
+                    </c:forEach>
+                </c:if>
+            </spring:bind>
+        </fieldset>
+        <fieldset class="visualPadding">
+            <legend>Sub County</legend>
+            <spring:bind path="queuedReports.subCounty">
+                <select name="${status.expression}" id="subCounty">
+                    <option></option>
+                    <c:forEach var="subCounty" items="${subcounties}">
+                        <option <c:if test="${status.value==subCounty.locationId}">selected</c:if> value="${subCounty.locationId}">${subCounty.name}</option>
+                    </c:forEach>
+                </select>
+                <c:if test="${status.error}">
+                    Error codes:
+                    <c:forEach items="${status.errorMessages}" var="error">
+                        <c:out value="${error}"/>
+                    </c:forEach>
+                </c:if>
+            </spring:bind>
+        </fieldset>
+        <fieldset class="visualPadding">
+            <legend>Ward</legend>
+            <spring:bind path="queuedReports.ward">
+                <select name="${status.expression}" id="ward">
+                    <option></option>
+                    <c:forEach var="ward" items="${wards}">
+                        <option <c:if test="${status.value==ward.locationId}">selected</c:if> value="${ward.locationId}">${ward.name}</option>
+                    </c:forEach>
+                </select>
+                <c:if test="${status.error}">
+                    Error codes:
+                    <c:forEach items="${status.errorMessages}" var="error">
+                        <c:out value="${error}"/>
+                    </c:forEach>
+                </c:if>
+            </spring:bind>
+        </fieldset>
+
+        <fieldset class="visualPadding">
+            <legend>Facility</legend>
+            <spring:bind path="queuedReports.facility">
+                <select name="${status.expression}" id="facility">
+                    <option></option>
                     <c:forEach var="facility" items="${facilities}">
-                        <option
-                        <c:if test="${status.value==facility.facilityId}">selected</c:if> value="${facility.facilityId}">${facility.code}
-                        - ${facility.name} </option>
+                        <option <c:if test="${status.value==facility.locationId}">selected</c:if> value="${facility.locationId}">${facility.name}</option>
                     </c:forEach>
                 </select>
                 <c:if test="${status.error}">
@@ -134,7 +185,7 @@
             </spring:bind>
         </fieldset>
 
-                <input id="submitButton" class="visualPadding newline" type="submit" value="Queue for processing"/>
+        <input id="submitButton" class="visualPadding newline" type="submit" value="Queue for processing"/>
 
     </form>
 

@@ -56,7 +56,7 @@
                     <select name="facilityId" id="facilityId">
                         <option value="" selected="selected">Select Facility</option>
                         <c:forEach var="facility" items="${facilities}">
-                            <option value="${facility.facilityId}">${facility.name}</option>
+                            <option value="${facility.locationId}">${facility.name}</option>
                         </c:forEach>
                     </select>
                 </td>
