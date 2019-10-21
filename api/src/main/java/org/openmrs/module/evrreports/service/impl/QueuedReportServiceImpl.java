@@ -4,12 +4,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Cohort;
 import org.openmrs.Location;
 import org.openmrs.api.APIException;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.evrreports.AmrsReportsConstants;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.QueuedReport;
 import org.openmrs.module.evrreports.db.QueuedReportDAO;
@@ -17,8 +15,6 @@ import org.openmrs.module.evrreports.reporting.provider.ReportProvider;
 import org.openmrs.module.evrreports.service.QueuedReportService;
 import org.openmrs.module.evrreports.service.ReportProviderRegistrar;
 import org.openmrs.module.evrreports.util.MOHReportUtil;
-import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
@@ -34,8 +30,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -64,8 +60,8 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		if (queuedReport.getReportName() == null)
 			throw new APIException("The queued report must reference a report provider by name.");
 
-		if (queuedReport.getFacility() == null)
-			throw new APIException("The queued report must reference a facility.");
+		if (queuedReport.getFacility() == null && queuedReport.getCounty() == null && queuedReport.getSubCounty() == null && queuedReport.getWard() == null)
+			throw new APIException("The queued report must reference a facility, ward, sub county, or county.");
 
 		// find the report provider
 		ReportProvider reportProvider = ReportProviderRegistrar.getInstance().getReportProviderByName(queuedReport.getReportName());
@@ -80,8 +76,58 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		evaluationContext.setEvaluationDate(queuedReport.getEvaluationDate());
 		evaluationContext.addParameterValue("startDate", queuedReport.getDateScheduled());
 		evaluationContext.addParameterValue("endDate", queuedReport.getEvaluationDate());
-		evaluationContext.addParameterValue("facilityList", queuedReport.getFacility());
-		evaluationContext.addContextValue("facility.name", queuedReport.getFacility().getName());
+		if (queuedReport.getFacility() != null) {
+			evaluationContext.addParameterValue("facilityList", queuedReport.getFacility());
+		} else if (queuedReport.getWard() != null) {
+			List<Location> locationsInWard = Context.getLocationService().getLocations(null, queuedReport.getWard(), null,false, null, null);
+			evaluationContext.addParameterValue("facilityList", locationsInWard);
+
+		} else if (queuedReport.getSubCounty() != null) {
+			List<Location> wards = Context.getLocationService().getLocations(null, queuedReport.getSubCounty(), null,false, null, null);
+			List<Location> facilitiesInSubcounty = new ArrayList<Location>();
+
+			if (!wards.isEmpty()) {
+				for (Location ward : wards) {
+					facilitiesInSubcounty.addAll(Context.getLocationService().getLocations(null, ward, null,false, null, null));
+				}
+			}
+			evaluationContext.addParameterValue("facilityList", facilitiesInSubcounty);
+
+		} else if (queuedReport.getCounty() != null) {
+			List<Location> subCounties = Context.getLocationService().getLocations(null, queuedReport.getSubCounty(), null,false, null, null);
+			List<Location> countyFacilities = new ArrayList<Location>();
+			if (!subCounties.isEmpty()) {
+				for (Location ward : subCounties) {
+					for (Location wardFacility : Context.getLocationService().getLocations(null, ward, null,false, null, null)) {
+						countyFacilities.add(wardFacility);
+					}
+				}
+			}
+
+			evaluationContext.addParameterValue("facilityList", countyFacilities);
+
+		}
+
+		//System.out.println("Report facilities: " + evaluationContext.getParameterValue("facilityList"));
+		String code = null;//queuedReport.getFacility().getName();
+
+
+		if (queuedReport.getFacility() != null) {
+			evaluationContext.addContextValue("facility.name", queuedReport.getFacility().getName());
+			code = queuedReport.getFacility().getName();
+		} else if (queuedReport.getWard() != null) {
+			evaluationContext.addContextValue("facility.name", queuedReport.getWard().getName());
+			code = queuedReport.getWard().getName();
+
+		} else if (queuedReport.getSubCounty() != null) {
+			evaluationContext.addContextValue("facility.name", queuedReport.getSubCounty().getName());
+			code = queuedReport.getSubCounty().getName();
+
+		} else if (queuedReport.getCounty() != null) {
+			evaluationContext.addContextValue("facility.name", queuedReport.getCounty().getName());
+			code = queuedReport.getCounty().getName();
+
+		}
 		//evaluationContext.addContextValue("facility.code", queuedReport.getFacility().getCode());
 		evaluationContext.addContextValue("period.year", new SimpleDateFormat("yyyy").format(queuedReport.getEvaluationDate()));
 
@@ -103,14 +149,13 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 		String folderName = as.getGlobalProperty("evrreports.file_dir");
 
 		// create a new file
-		String code = queuedReport.getFacility().getName();
 
 		String csvFilename = ""
 				+ queuedReport.getReportName().replaceAll(" ", "-")
 				+ "_"
 				+ code
 				+ "_"
-				+ queuedReport.getFacility().getName().replaceAll(" ", "-")
+				+ code.replaceAll(" ", "-")
 				+ "_end_date_"
 				+ formattedEvaluationDate
 				+ "_start_date_"

@@ -9,6 +9,7 @@
  */
 package org.openmrs.module.evrreports.reporting.library.MOH710;
 
+import org.openmrs.Location;
 import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.SqlCohortDefinition;
@@ -77,7 +78,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given BCG");
 
 		return cd;
@@ -92,7 +93,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given OPV at birth");
 
 		return cd;
@@ -107,7 +108,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given OPV 1");
 
 		return cd;
@@ -122,7 +123,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given OPV 2");
 
 		return cd;
@@ -137,7 +138,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given OPV 3");
 
 		return cd;
@@ -152,7 +153,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given IPV");
 
 		return cd;
@@ -167,7 +168,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Dpt-Hep-Hib 1");
 
 		return cd;
@@ -182,7 +183,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Dpt-Hep-Hib 2");
 
 		return cd;
@@ -197,7 +198,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Dpt-Hep-Hib 3");
 
 		return cd;
@@ -212,7 +213,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Pneumococcal 1");
 
 		return cd;
@@ -227,7 +228,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Pneumococcal 2");
 
 		return cd;
@@ -242,7 +243,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Pneumococcal 3");
 
 		return cd;
@@ -257,7 +258,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Rota 1 vaccine");
 
 		return cd;
@@ -272,7 +273,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Rota 2 vaccine");
 
 		return cd;
@@ -287,7 +288,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Vitamin A at 6 Months");
 
 		return cd;
@@ -302,7 +303,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Yellow Fever vaccine");
 
 		return cd;
@@ -317,7 +318,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Measles-Rubella 1 vaccine");
 
 		return cd;
@@ -332,7 +333,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Fully immunized child");
 
 		return cd;
@@ -347,7 +348,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Vitamin A at 1 years (200,000IU)");
 
 		return cd;
@@ -362,7 +363,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Vitamin A at 2 years to 5 years (200,000IU)");
 
 		return cd;
@@ -377,7 +378,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Measles - Rubella 2(at 1 1/2 - 2 years)");
 
 		return cd;
@@ -392,7 +393,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Given Measles - Rubella 2(at 1 1/2 - 2 years)");
 
 		return cd;
@@ -407,7 +408,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Measles-Rubella 2 Above 2 years");
 
 		return cd;
@@ -422,7 +423,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Tetanus Toxoid for pregnant women first dose");
 
 		return cd;
@@ -437,7 +438,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Tetanus Toxoid for pregnant women second dose");
 
 		return cd;
@@ -452,7 +453,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Tetanus Toxoid plus(Booster) for pregnant women");
 
 		return cd;
@@ -467,7 +468,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("2 -5 years (200,000 IU)");
 
 		return cd;
@@ -482,7 +483,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Vitamin A Supplemental Lactating Mothers(200,000 IU)");
 
 		return cd;
@@ -497,7 +498,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Issued with LLITN in this Visit (under 1 year)");
 
 		return cd;
@@ -512,7 +513,7 @@ public class EVRMoh710CohortLibrary {
 		cd.setQuery(sqlQuery);
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 		cd.setDescription("Squint/White Eye Reflection under 1 year");
 
 		return cd;

@@ -107,10 +107,7 @@ public class QueuedReportFormController {
 			editedReport.setRepeatInterval(0);
 
 		}
-		System.out.println("County: " + editedReport.getCounty());
-		System.out.println("Sub County: " + editedReport.getSubCounty());
-		System.out.println("Ward: " + editedReport.getWard());
-		System.out.println("Facility: " + editedReport.getFacility());
+
 		queuedReportService.saveQueuedReport(editedReport);
 		httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Report queued for processing.");
 

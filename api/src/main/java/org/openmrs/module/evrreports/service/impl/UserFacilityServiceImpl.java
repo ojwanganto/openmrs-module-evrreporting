@@ -10,6 +10,7 @@ import org.openmrs.module.evrreports.service.MOHFacilityService;
 import org.openmrs.module.evrreports.service.UserFacilityService;
 import org.openmrs.util.RoleConstants;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,8 +52,11 @@ public class UserFacilityServiceImpl implements UserFacilityService {
 		if (user == null)
 			return Collections.emptyList();
 
+		List<Location> allLocations = new ArrayList<Location>();
 		if (user.hasRole(RoleConstants.SUPERUSER)) {
-			return Context.getLocationService().getLocationsByTag(Context.getLocationService().getLocationTagByUuid(HEALTH_FACILITY));
+			return Context.getLocationService().getAllLocations();
+			//allLocations.addAll(Context.getLocationService().getLocationsByTag(Context.getLocationService().getLocationTagByUuid(HEALTH_FACILITY)));
+
 		}
 
 		return dao.getAllowedFacilitiesForUser(user);

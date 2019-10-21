@@ -12,8 +12,8 @@ package org.openmrs.module.evrreports.reporting.builder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Location;
 import org.openmrs.api.APIException;
-import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.reporting.cohort.definition.EVRMoh510CohortDefinition;
 import org.openmrs.module.evrreports.reporting.data.ClientIdentifierDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.ClientParentGuardianNameDataDefinition;
@@ -63,7 +63,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date", Date.class),
-				new Parameter("facilityList", "Facility List", MOHFacility.class)
+				new Parameter("facilityList", "Facility List", Location.class)
 		);
 	}
 
@@ -123,7 +123,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition("immunizationRegister");
 		dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		dsd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		dsd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 
 
 		/*PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, MchMetadata._PatientIdentifierType.CWC_NUMBER);
@@ -178,7 +178,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
         EVRMoh510CohortDefinition cd = new EVRMoh510CohortDefinition();
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		cd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		cd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 
 		dsd.addRowFilter(cd, paramMapping);
 		return dsd;

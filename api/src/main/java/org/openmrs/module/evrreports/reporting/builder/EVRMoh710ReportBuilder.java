@@ -12,8 +12,8 @@ package org.openmrs.module.evrreports.reporting.builder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Location;
 import org.openmrs.api.APIException;
-import org.openmrs.module.evrreports.MOHFacility;
 import org.openmrs.module.evrreports.reporting.ColumnParameters;
 import org.openmrs.module.evrreports.reporting.EmrReportingUtils;
 import org.openmrs.module.evrreports.reporting.library.MOH710.EVRMoh710IndicatorLibrary;
@@ -60,7 +60,7 @@ public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date", Date.class),
-				new Parameter("facilityList", "Facility List", MOHFacility.class)
+				new Parameter("facilityList", "Facility List", Location.class)
 		);
 	}
 
@@ -118,7 +118,7 @@ public class EVRMoh710ReportBuilder extends EVRAbstractReportBuilder {
 		dsd.setDescription("MOH 710 Immunizations");
 		dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
-		dsd.addParameter(new Parameter("facilityList", "Facility List", MOHFacility.class));
+		dsd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 
 
 		EVRCommonDimensionLibrary commDim = new EVRCommonDimensionLibrary();

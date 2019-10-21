@@ -2,6 +2,8 @@ package org.openmrs.module.evrreports.db.hibernate;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Location;
@@ -68,11 +70,16 @@ public class HibernateQueuedReportDAO implements QueuedReportDAO {
 
 	@Override
 	public List<QueuedReport> getQueuedReportsByFacilities(List<Location> facilities, String status) {
+
 		return sessionFactory.getCurrentSession().createCriteria(QueuedReport.class)
 				.add(Restrictions.eq("status", status))
+				.add(Restrictions.disjunction()
 				.add(Restrictions.in("facility", facilities))
-				.createAlias("facility", "f")
-				.addOrder(Order.asc("f.name"))
+				.add(Restrictions.in("county", facilities))
+				.add(Restrictions.in("ward", facilities))
+				.add(Restrictions.in("subCounty", facilities)))
+				//.createAlias("facility", "f")
+				//.addOrder(Order.asc("f.name"))
 				.addOrder(Order.desc("dateScheduled"))
 				.list();
 	}
