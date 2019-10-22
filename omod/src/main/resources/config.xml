@@ -92,6 +92,7 @@
                 <include method="assignMissingIdentifiersForFacility"/>
                 <include method="getPreARTEnrollmentLocationUuidForPatientUuid"/>
                 <include method="isReportRunnerScheduledTaskOn"/>
+                <include method="getChildrenForLocation"/>
             </create>
             <convert match="org.openmrs.module.evrreports.UserFacility" converter="bean" />
             <convert match="org.openmrs.Location" converter="bean" />
@@ -117,6 +118,8 @@
             DWRAmrsReportService.assignMissingIdentifiersForFacility(Integer facilityId);
             DWRAmrsReportService.getPreARTEnrollmentLocationUuidForPatientUuid(String patientUuid);
             DWRAmrsReportService.isReportRunnerScheduledTaskOn();
+            DWRAmrsReportService.getChildrenForLocation(Integer parentLocationId);
+
 			]]>
         </signatures>
     </dwr>

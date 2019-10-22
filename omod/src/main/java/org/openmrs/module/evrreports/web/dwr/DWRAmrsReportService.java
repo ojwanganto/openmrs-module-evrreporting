@@ -4,9 +4,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.api.APIAuthenticationException;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.evrreports.HIVCareEnrollment;
 import org.openmrs.module.evrreports.MOHFacility;
@@ -15,6 +17,7 @@ import org.openmrs.module.evrreports.reporting.provider.ReportProvider;
 import org.openmrs.module.evrreports.service.HIVCareEnrollmentService;
 import org.openmrs.module.evrreports.service.MOHFacilityService;
 import org.openmrs.module.evrreports.service.ReportProviderRegistrar;
+import org.openmrs.module.evrreports.service.UserFacilityService;
 import org.openmrs.module.evrreports.task.EVRReportsTask;
 import org.openmrs.module.evrreports.task.RunQueuedReportsTask;
 import org.openmrs.module.evrreports.task.RefreshETLTablesTask;
@@ -443,5 +446,24 @@ public class DWRAmrsReportService {
 
 		Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_SCHEDULER);
 		return false;
+	}
+
+	/**
+	 * Returns a list of location for a parent
+	 * @param parentLocationId
+	 * @return list of location
+	 */
+	public Map<Integer, String> getChildrenForLocation(Integer parentLocationId) {
+
+		Map<Integer, String> locationSnapshots = new HashMap<Integer, String>();
+		List<Location> allowedFacilities = Context.getService(UserFacilityService.class).getAllowedFacilitiesForUser(Context.getAuthenticatedUser());
+		LocationService locationService = Context.getLocationService();
+		List<Location> locations = Context.getLocationService().getLocations(null, locationService.getLocation(parentLocationId), null,false, null, null);
+		for (Location l : locations) {
+			if (allowedFacilities.contains(l)) {
+				locationSnapshots.put(l.getLocationId(), l.getName());
+			}
+		}
+		return locationSnapshots;
 	}
 }

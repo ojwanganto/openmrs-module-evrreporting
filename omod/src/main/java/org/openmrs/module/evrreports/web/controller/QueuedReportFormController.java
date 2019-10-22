@@ -58,19 +58,19 @@ public class QueuedReportFormController {
 		return Context.getLocationService().getLocationsByTag(countyTag);
 	}
 
-	@ModelAttribute("subcounties")
+	//@ModelAttribute("subcounties")
 	public List<Location> getSubCounties() {
 		LocationTag subCountyTag = Context.getLocationService().getLocationTagByUuid(SUB_COUNTY);
 		return Context.getLocationService().getLocationsByTag(subCountyTag);
 	}
 
-	@ModelAttribute("wards")
+	//@ModelAttribute("wards")
 	public List<Location> getWards() {
 		LocationTag wardTag = Context.getLocationService().getLocationTagByUuid(WARD);
 		return Context.getLocationService().getLocationsByTag(wardTag);
 	}
 
-	@ModelAttribute("facilities")
+	//@ModelAttribute("facilities")
 	public List<Location> getFacilities() {
 		LocationTag facilityTag = Context.getLocationService().getLocationTagByUuid(HEALTH_FACILITY);
 		return Context.getLocationService().getLocationsByTag(facilityTag);	}
@@ -103,6 +103,18 @@ public class QueuedReportFormController {
         HttpSession httpSession = request.getSession();
         QueuedReportService queuedReportService = Context.getService(QueuedReportService.class);
 
+        if (editedReport.getDateScheduled() == null || editedReport.getEvaluationDate() == null) {
+			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Please provide both reporting start and end dates");
+			return FORM_VIEW;
+		}
+        if (editedReport.getCounty() == null && editedReport.getSubCounty() == null && editedReport.getWard() == null && editedReport.getFacility() == null) {
+			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Please select location for the report.");
+			return FORM_VIEW;
+		}
+		if (editedReport.getReportName() == null || editedReport.getReportName() == "") {
+			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Please select a report.");
+			return FORM_VIEW;
+		}
 		if (editedReport.getRepeatInterval() == null || editedReport.getRepeatInterval() < 0) {
 			editedReport.setRepeatInterval(0);
 
