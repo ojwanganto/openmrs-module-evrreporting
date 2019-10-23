@@ -5,6 +5,7 @@ import org.apache.commons.lang.time.StopWatch;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
+import org.openmrs.LocationAttribute;
 import org.openmrs.api.APIException;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
@@ -43,6 +44,7 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 
 	private QueuedReportDAO dao;
 	private final Log log = LogFactory.getLog(this.getClass());
+	public static final String MASTER_FACILITY_CODE = "1fb2c933-0323-11e7-b443-54271eac1477";
 
 	public void setDao(QueuedReportDAO dao) {
 		this.dao = dao;
@@ -113,8 +115,16 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 
 
 		if (queuedReport.getFacility() != null) {
-			evaluationContext.addContextValue("facility.name", queuedReport.getFacility().getName());
-			code = queuedReport.getFacility().getName();
+			Location hFacility = queuedReport.getFacility();
+			evaluationContext.addContextValue("facility.name", hFacility.getName());
+			String mflCode = null;
+			for(LocationAttribute attr : hFacility.getActiveAttributes()) {
+				if (attr.getAttributeType().getUuid().equals(MASTER_FACILITY_CODE) && !attr.isVoided()) {
+					mflCode = String.valueOf(attr.getValue());
+				}
+
+			}
+			code = mflCode;
 		} else if (queuedReport.getWard() != null) {
 			evaluationContext.addContextValue("facility.name", queuedReport.getWard().getName());
 			code = queuedReport.getWard().getName();
@@ -128,7 +138,7 @@ public class QueuedReportServiceImpl implements QueuedReportService {
 			code = queuedReport.getCounty().getName();
 
 		}
-		//evaluationContext.addContextValue("facility.code", queuedReport.getFacility().getCode());
+		evaluationContext.addContextValue("facility.code", code);
 		evaluationContext.addContextValue("period.year", new SimpleDateFormat("yyyy").format(queuedReport.getEvaluationDate()));
 
 

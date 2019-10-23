@@ -39,6 +39,13 @@
         reportDate = new DatePicker("<openmrs:datePattern/>", "evaluationDate");
         startDate = new DatePicker("<openmrs:datePattern/>", "dateScheduled");
 
+        var countySelection = $j("#county").val();
+        var subCountySelection = $j("#subCounty").val();
+        var wardSelection = $j("#ward").val();
+        getSubcountiesInCounty(countySelection);
+        getWardsInSubcounty(subCountySelection);
+        getFacilitiesInWard(wardSelection);
+
         // -----------------------------------------------
 
             // set the trigger for drop downs
@@ -46,64 +53,84 @@
                 event.preventDefault();
                 var selVal = $j(this).val();
 
-                // Get list of wards
-                if (selVal != null && selVal !="") {
-                    DWRAmrsReportService.getChildrenForLocation(selVal, function (locations) {
-                        var listitems = '<option></option>';
-                        var subCountySelect = $j("#subCounty");
-                        var wardSelect = $j("#ward");
-                        var facilitySelect = $j("#facility");
-                        subCountySelect.find('option').remove();
-                        wardSelect.find('option').remove();
-                        facilitySelect.find('option').remove();
-                        $j.each(locations, function(key, value){
-                            listitems += '<option value=' + key + '>' + value + '</option>';
-                        });
-                        subCountySelect.append(listitems);
-                    });
-                }
+                getSubcountiesInCounty(selVal);
             });
 
             $j("#subCounty").live("change", function(event){
                 event.preventDefault();
                 var selVal = $j(this).val();
-
-                // Get list of wards
-                if (selVal != null && selVal !="") {
-                    DWRAmrsReportService.getChildrenForLocation(selVal, function (locations) {
-                        var listitems = '<option></option>';
-                        var wardSelect = $j("#ward");
-                        var facilitySelect = $j("#facility");
-                        wardSelect.find('option').remove();
-                        facilitySelect.find('option').remove();
-                        $j.each(locations, function(key, value){
-                            listitems += '<option value=' + key + '>' + value + '</option>';
-                        });
-                        wardSelect.append(listitems);
-                    });
-                }
+                getWardsInSubcounty(selVal);
             });
 
         $j("#ward").live("change", function(event){
             event.preventDefault();
             var selWard = $j(this).val();
+            getFacilitiesInWard(selWard);
 
-            // Get list of facilities
-            if (selWard != null && selWard !="") {
-                DWRAmrsReportService.getChildrenForLocation(selWard, function (locations) {
-                    var listitems = '<option></option>';
-                    var facilitySelect = $j("#facility");
-                    facilitySelect.find('option').remove();
-                    $j.each(locations, function(key, value){
-                        listitems += '<option value=' + key + '>' + value + '</option>';
-                    });
-                    facilitySelect.append(listitems);
-                });
-            }
         });
         // -----------------------------------------------
 
     });
+
+    function getSubcountiesInCounty(selVal) {
+        // Get list of sub-counties
+        if (selVal != null && selVal !="") {
+            DWRAmrsReportService.getChildrenForLocation(selVal, function (locations) {
+                var listitems = '<option></option>';
+                var subCountySelect = $j("#subCounty");
+                var wardSelect = $j("#ward");
+                var facilitySelect = $j("#facility");
+                subCountySelect.find('option').remove();
+                wardSelect.find('option').remove();
+                facilitySelect.find('option').remove();
+                $j.each(locations, function(key, value){
+                    listitems += '<option value=' + key + '>' + value + '</option>';
+                });
+                subCountySelect.append(listitems);
+            });
+        } else {
+            $j("#subCounty").find('option').remove();
+            $j("#ward").find('option').remove();
+            $j("#facility").find('option').remove();
+        }
+    }
+
+    function getWardsInSubcounty(selVal) {
+        // Get list of wards
+        if (selVal != null && selVal !="") {
+            DWRAmrsReportService.getChildrenForLocation(selVal, function (locations) {
+                var listitems = '<option></option>';
+                var wardSelect = $j("#ward");
+                var facilitySelect = $j("#facility");
+                wardSelect.find('option').remove();
+                facilitySelect.find('option').remove();
+                $j.each(locations, function(key, value){
+                    listitems += '<option value=' + key + '>' + value + '</option>';
+                });
+                wardSelect.append(listitems);
+            });
+        } else {
+            $j("#ward").find('option').remove();
+            $j("#facility").find('option').remove();
+        }
+    }
+
+    function getFacilitiesInWard(selWard) {
+        // Get list of facilities
+        if (selWard != null && selWard !="") {
+            DWRAmrsReportService.getChildrenForLocation(selWard, function (locations) {
+                var listitems = '<option></option>';
+                var facilitySelect = $j("#facility");
+                facilitySelect.find('option').remove();
+                $j.each(locations, function(key, value){
+                    listitems += '<option value=' + key + '>' + value + '</option>';
+                });
+                facilitySelect.append(listitems);
+            });
+        } else {
+            $j("#facility").find('option').remove();
+        }
+    }
 
 </script>
 

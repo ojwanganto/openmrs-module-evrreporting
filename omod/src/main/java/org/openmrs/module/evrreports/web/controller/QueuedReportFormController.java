@@ -108,11 +108,11 @@ public class QueuedReportFormController {
 			return FORM_VIEW;
 		}
         if (editedReport.getCounty() == null && editedReport.getSubCounty() == null && editedReport.getWard() == null && editedReport.getFacility() == null) {
-			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Please select location for the report.");
+			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Please select at least a location (County, Sub County, Ward, Facility) for the report.");
 			return FORM_VIEW;
 		}
 		if (editedReport.getReportName() == null || editedReport.getReportName() == "") {
-			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Please select a report.");
+			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Please select a report to schedule (MOH 510, MOH 710).");
 			return FORM_VIEW;
 		}
 		if (editedReport.getRepeatInterval() == null || editedReport.getRepeatInterval() < 0) {

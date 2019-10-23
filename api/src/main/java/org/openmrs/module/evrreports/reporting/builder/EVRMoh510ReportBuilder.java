@@ -126,27 +126,14 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 		dsd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 
 
-		/*PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, MchMetadata._PatientIdentifierType.CWC_NUMBER);
-		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
-		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(upn.getName(), upn), identifierFormatter);
-*/
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-		//dsd.addColumn("id", new PersonIdDataDefinition(), "");
-		//dsd.addColumn("Visit Date", new EncounterDatetimeDataDefinition(), "", new DateConverter(DATE_FORMAT));
-		//dsd.addColumn("Serial Number", new PersonIdDataDefinition(), "");
-		//dsd.addColumn("CWC Number", identifierDef, "");
+
 		dsd.addColumn("Name", nameDef, "");
 		dsd.addColumn("Sex", new GenderDataDefinition(), "");
 		dsd.addColumn("Date of Birth", new BirthdateDataDefinition(), "", new BirthdateConverter(DATE_FORMAT));
 
-		/*dsd.addColumn("Date first seen", new ObsForPersonDataDefinition("Date first seen", TimeQualifier.FIRST, Dictionary.getConcept(Dictionary.DATE_FIRST_SEEN), null, null), "", new ObsValueDatetimeConverter());
-        dsd.addColumn("Fathers full name", new CalculationDataDefinition("Father's full name", new ParentCalculation("Father")), "", new RDQACalculationResultConverter());
-        dsd.addColumn("Mothers full name", new CalculationDataDefinition("Mother's full name", new ParentCalculation("Mother")), "", new RDQACalculationResultConverter());
-        dsd.addColumn("Village_Estate_Landmark", new CalculationDataDefinition("Village/Estate/Landmark", new PersonAddressCalculation()), "", new RDQACalculationResultConverter());
-        dsd.addColumn("Telephone Number", new CalculationDataDefinition("Telephone Number", new PersonAttributeCalculation("Telephone contact")), "", new RDQACalculationResultConverter());
-*/
-        dsd.addColumn("id", new ClientIdentifierDataDefinition("id", "kip_id"), "");
+        dsd.addColumn("KIP ID", new ClientIdentifierDataDefinition("id", "kip_id"), "");
         dsd.addColumn("Serial Number", new ClientIdentifierDataDefinition("Serial Number", "permanent_register_number"), "");
         dsd.addColumn("CWC Number", new ClientIdentifierDataDefinition("CWC Number", "cwc_number"), "");
 
