@@ -1,5 +1,3 @@
--- noinspection SqlNoDataSourceInspectionForFile
-
 SET @OLD_SQL_MODE=@@SQL_MODE$$
 SET SQL_MODE=''$$
 DROP PROCEDURE IF EXISTS create_moh_710_etl_table$$

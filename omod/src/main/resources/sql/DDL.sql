@@ -1,4 +1,3 @@
-
 DROP PROCEDURE IF EXISTS create_etl_tables$$
 CREATE PROCEDURE create_etl_tables()
 BEGIN

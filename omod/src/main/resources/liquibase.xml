@@ -323,7 +323,7 @@
     </changeSet>
 
 
-    <!--<changeSet id="${project.parent.artifactId}-20190505-1730" author="aojwang">
+    <changeSet id="${project.parent.artifactId}-20190505-1730" author="aojwang">
         <comment>
             Sets up ETL tables. Recreation of tables
         </comment>
@@ -333,7 +333,7 @@
             CALL create_moh_710_etl_table();
             CALL sp_scheduled_moh_710_updates();
         </sql>
-    </changeSet>-->
+    </changeSet>
 
 
     <!--Adding scheduled task to periodically refresh ETL tables-->

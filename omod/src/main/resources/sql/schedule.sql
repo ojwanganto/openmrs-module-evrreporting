@@ -1,4 +1,3 @@
-# noinspection SqlNoDataSourceInspectionForFile
 SET @OLD_SQL_MODE=@@SQL_MODE$$
 SET SQL_MODE=''$$
 
