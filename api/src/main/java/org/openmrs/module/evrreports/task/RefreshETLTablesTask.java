@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Updates HIV Care HIVCareEnrollment table with latest enrollment information
+ * Updates EVR reporting tables
  */
 public class RefreshETLTablesTask extends EVRReportsTask {
 
@@ -41,11 +41,13 @@ public class RefreshETLTablesTask extends EVRReportsTask {
 
 					CallableStatement cs = connection.prepareCall("{call create_etl_tables}");
 					CallableStatement updates = connection.prepareCall("{CALL sp_scheduled_updates}");
-					CallableStatement moh710 = connection.prepareCall("{CALL sp_scheduled_moh_710_updates}");
+					CallableStatement createMoh710Table = connection.prepareCall("{CALL create_moh_710_etl_table}");
+					CallableStatement moh710Updates = connection.prepareCall("{CALL sp_scheduled_moh_710_updates}");
+
 					cs.execute();
 					updates.execute();
-					moh710.execute();
-
+					createMoh710Table.execute();
+					moh710Updates.execute();
 				}
 			});
 			finalTx.commit();

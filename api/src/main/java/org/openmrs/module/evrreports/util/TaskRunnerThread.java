@@ -108,7 +108,7 @@ public class TaskRunnerThread extends Thread {
 
 		Context.openSession();
 		Context.setUserContext(userContext);
-		Context.addProxyPrivilege(PrivilegeConstants.SQL_LEVEL_ACCESS);
+		//Context.addProxyPrivilege(PrivilegeConstants.SQL_LEVEL_ACCESS);
 
 		taskStatus = Status.RUNNING;
 
@@ -138,7 +138,7 @@ public class TaskRunnerThread extends Thread {
 			}
 		}
 		// clean up
-		Context.removeProxyPrivilege(PrivilegeConstants.SQL_LEVEL_ACCESS);
+		//Context.removeProxyPrivilege(PrivilegeConstants.SQL_LEVEL_ACCESS);
 		Context.closeSession();
 		setActive(false);
 	}

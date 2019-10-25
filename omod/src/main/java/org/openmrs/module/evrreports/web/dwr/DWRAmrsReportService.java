@@ -301,6 +301,13 @@ public class DWRAmrsReportService {
 			return null;
 
 		try {
+
+			// ensure to stop any started thread
+			try {
+				TaskRunnerThread.destroyInstance();
+			} catch (Throwable throwable) {
+				// swallow any error returned
+			}
 			// create a new thread and get it started
 			TaskRunnerThread.getInstance().initialize(task, Context.getUserContext());
 			TaskRunnerThread.getInstance().setName("EVR Reports Task Runner");

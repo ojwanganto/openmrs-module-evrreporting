@@ -27,7 +27,7 @@
                     <span class="facilityName">${f.key}</span>
                     <c:if test="${fn:length(f.value) gt 2}">
                         <span class="moreLink">
-                            <button class="show_hide" href="#" rel="#${model.status}${f.key.code}">View ${fn:length(f.value) - 2} More</button>
+                            <button class="show_hide" href="#" rel="#${model.status}${f.key.locationId}">View ${fn:length(f.value) - 2} More</button>
                         </span>
                     </c:if>
                 </div>
@@ -40,7 +40,7 @@
 
                         <c:if test="${status.index == 2 }">
                             <c:set var="extra" value="${true}"/>
-                            <div id="${model.status}${f.key.code}" class="extraContent">
+                            <div id="${model.status}${f.key.locationId}" class="extraContent">
                         </c:if>
 
                         <div class="${status.index % 2 == 0 ? "oddRow" : "evenRow"}">

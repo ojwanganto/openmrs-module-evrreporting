@@ -16,24 +16,6 @@
 
 <script>
 
-    function enableSaveFor(wrapper) {
-        $j("#" + wrapper + " input[name=save]").fadeIn();
-    }
-
-    function saveGPFor(wrapper) {
-        var property = $j("#" + wrapper + " [name=property]").val();
-        var value = $j("#" + wrapper + " [name=value]").val();
-
-        DWRAdministrationService.setGlobalProperty(property, value, function(){
-            $j("#" + wrapper + " input[name=save]").fadeOut("fast", function(){
-                $j("#" + wrapper + " span.saved").fadeIn("fast", function(){
-                    $j("#" + wrapper + " span.saved").fadeOut(2000);
-                });
-            });
-        });
-
-        return false;
-    }
 
     function clearTaskMessage() {
         $j("#taskMessage").fadeOut("fast", function(){
@@ -120,6 +102,7 @@
 
         <div id="buttons">
             <button id="startTask">Start Task</button>
+            <button id="stopTask">Stop Task</button>
         </div>
     </form>
 
