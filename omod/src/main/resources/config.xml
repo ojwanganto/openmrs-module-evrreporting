@@ -80,17 +80,9 @@
                 <include method="viewMoreDetailsRender"/>
                 <include method="downloadCSV"/>
                 <include method="downloadPDF"/>
-                <include method="getCohortCountForFacilityPerProvider"/>
-                <include method="getCohort"/>
                 <include method="startTaskRunner"/>
                 <include method="stopTaskRunner"/>
                 <include method="getTaskRunnerStatus"/>
-                <include method="getFacilityName"/>
-                <include method="getFacilityCode"/>
-                <include method="getPatientCountMissingCCCNumbersInFacility"/>
-                <include method="getPatientUuidsMissingCCCNumbersInFacility"/>
-                <include method="assignMissingIdentifiersForFacility"/>
-                <include method="getPreARTEnrollmentLocationUuidForPatientUuid"/>
                 <include method="isReportRunnerScheduledTaskOn"/>
                 <include method="getChildrenForLocation"/>
             </create>
@@ -106,17 +98,9 @@
 			DWRAmrsReportService.viewMoreDetailsRender(String bff, String id);
 			DWRAmrsReportService.downloadCSV(String csvFile);
 			DWRAmrsReportService.downloadPDF(String file);
-        	DWRAmrsReportService.getCohortCountForFacilityPerProvider(Integer facilityId, Date evaluationDate);
-            DWRAmrsReportService.getCohort(Integer locationId, Date evaluationDate);
             DWRAmrsReportService.startTaskRunner(String taskName);
             DWRAmrsReportService.stopTaskRunner();
             DWRAmrsReportService.getTaskRunnerStatus();
-            DWRAmrsReportService.getFacilityName(Integer facilityId);
-            DWRAmrsReportService.getFacilityCode(Integer facilityId);
-            DWRAmrsReportService.getPatientCountMissingCCCNumbersInFacility(Integer facilityId);
-            DWRAmrsReportService.getPatientUuidsMissingCCCNumbersInFacility(Integer facilityId);
-            DWRAmrsReportService.assignMissingIdentifiersForFacility(Integer facilityId);
-            DWRAmrsReportService.getPreARTEnrollmentLocationUuidForPatientUuid(String patientUuid);
             DWRAmrsReportService.isReportRunnerScheduledTaskOn();
             DWRAmrsReportService.getChildrenForLocation(Integer parentLocationId);
 
