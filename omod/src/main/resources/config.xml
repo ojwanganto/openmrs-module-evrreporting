@@ -38,7 +38,7 @@
 	<!-- Required Privileges -->
 	<privilege>
 		<name>Manage EVRReports</name>
-		<description>Allows user to access Amrs reports pages/functions</description>
+		<description>Allows user to access EVR reports pages/functions</description>
 	</privilege>
 
 

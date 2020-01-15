@@ -12,21 +12,29 @@ package org.openmrs.module.evrreports.reporting.builder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.api.APIException;
 import org.openmrs.module.evrreports.reporting.cohort.definition.EVRMoh510CohortDefinition;
+import org.openmrs.module.evrreports.reporting.converter.EncounterDatetimeConverter;
 import org.openmrs.module.evrreports.reporting.data.ClientIdentifierDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.ClientParentGuardianNameDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.EVRDateOfVaccineDataDefinition;
+import org.openmrs.module.evrreports.reporting.data.PatientLocationDataDefinition;
 import org.openmrs.module.evrreports.util.MOHReportUtil;
+import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.DataDefinition;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterLocationDataDefinition;
+import org.openmrs.module.reporting.data.patient.definition.EncountersForPatientDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.BirthdateDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.ConvertedPersonDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.GenderDataDefinition;
+import org.openmrs.module.reporting.data.person.definition.PersonAttributeDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PreferredNameDataDefinition;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
@@ -39,6 +47,7 @@ import org.openmrs.module.reporting.report.renderer.ExcelTemplateRenderer;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.springframework.stereotype.Component;
 
+import org.openmrs.api.context.Context;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -125,6 +134,13 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 		dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
 		dsd.addParameter(new Parameter("facilityList", "Facility List", Location.class));
 
+		PersonAttributeType telephoneNumber = Context.getPersonService().getPersonAttributeTypeByName("Telephone contact");
+		EncounterType immunizationEncounterType = Context.getEncounterService().getEncounterType("Vaccination");
+
+		EncountersForPatientDataDefinition firstEncounterDf = new EncountersForPatientDataDefinition();
+		firstEncounterDf.setWhich(TimeQualifier.FIRST);
+		firstEncounterDf.addType(immunizationEncounterType);
+
 
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
@@ -139,6 +155,9 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 
         dsd.addColumn("Fathers full name", new ClientParentGuardianNameDataDefinition("Fathers full name", "father"), "");
         dsd.addColumn("Mothers full name", new ClientParentGuardianNameDataDefinition("Mothers full name", "mother"), "");
+		dsd.addColumn("Telephone contact", new PersonAttributeDataDefinition("Telephone Number", telephoneNumber), "");
+		dsd.addColumn("Date first seen", firstEncounterDf, "", new EncounterDatetimeConverter(DATE_FORMAT));
+
 
 
         dsd.addColumn("BCG", new EVRDateOfVaccineDataDefinition("BCG", "bcg_vx_date"), "", new DateConverter(DATE_FORMAT));
@@ -161,6 +180,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
         dsd.addColumn("Yellow Fever", new EVRDateOfVaccineDataDefinition("Yellow Fever", "yf_vx_date"), "", new DateConverter(DATE_FORMAT));
         //dsd.addColumn("Fully Immunized Child", null, "");
         dsd.addColumn("Measles 2", new EVRDateOfVaccineDataDefinition("Measles 2", "mr_2_vx_date"), "", new DateConverter(DATE_FORMAT));
+        dsd.addColumn("Facility Name", new PatientLocationDataDefinition(), "", null);
 
         EVRMoh510CohortDefinition cd = new EVRMoh510CohortDefinition();
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));

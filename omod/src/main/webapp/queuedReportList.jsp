@@ -19,10 +19,15 @@
             hideText: 'View Last Two' // the button text to show when a div is open
         });
 
+        // try to refresh the page after every 20 sec
+        window.onload = timedRefresh(20000);
+
     });
 
 
-
+    function timedRefresh(timeoutPeriod) {
+        setTimeout("location.reload(true);",timeoutPeriod);
+    }
 
     function getScheduleInterval(interval){
         var units;
