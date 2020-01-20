@@ -22,6 +22,7 @@ import org.openmrs.module.evrreports.reporting.data.ClientIdentifierDataDefiniti
 import org.openmrs.module.evrreports.reporting.data.ClientParentGuardianNameDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.EVRDateOfVaccineDataDefinition;
 import org.openmrs.module.evrreports.reporting.data.PatientLocationDataDefinition;
+import org.openmrs.module.evrreports.reporting.data.RegistrationAddressDataDefinition;
 import org.openmrs.module.evrreports.util.MOHReportUtil;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.DataDefinition;
@@ -156,6 +157,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
         dsd.addColumn("Fathers full name", new ClientParentGuardianNameDataDefinition("Fathers full name", "father"), "");
         dsd.addColumn("Mothers full name", new ClientParentGuardianNameDataDefinition("Mothers full name", "mother"), "");
 		dsd.addColumn("Telephone contact", new PersonAttributeDataDefinition("Telephone Number", telephoneNumber), "");
+		dsd.addColumn("Address", new RegistrationAddressDataDefinition(), "");
 		dsd.addColumn("Date first seen", firstEncounterDf, "", new EncounterDatetimeConverter(DATE_FORMAT));
 
 
