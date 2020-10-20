@@ -156,6 +156,7 @@ public class EVRMoh510ReportBuilder extends EVRAbstractReportBuilder {
 
         dsd.addColumn("Fathers full name", new ClientParentGuardianNameDataDefinition("Fathers full name", "father"), "");
         dsd.addColumn("Mothers full name", new ClientParentGuardianNameDataDefinition("Mothers full name", "mother"), "");
+		dsd.addColumn("Mothers phone number", new ClientIdentifierDataDefinition("Mothers phone number", "mother_phone_numer"), "");
 		dsd.addColumn("Telephone contact", new PersonAttributeDataDefinition("Telephone Number", telephoneNumber), "");
 		dsd.addColumn("Address", new RegistrationAddressDataDefinition(), "");
 		dsd.addColumn("Date first seen", firstEncounterDf, "", new EncounterDatetimeConverter(DATE_FORMAT));
